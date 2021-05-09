@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Ubuntu&display=swap');
+
+*{
+    font-family: 'Ubuntu', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6{
+    font-family: 'Montserrat', sans-serif;
+}
+
+.contenido {
+    min-height: 82vh;
+}
+
+.footer {
+    padding: 3em 0;
+    background-color: #666;
+    color: #efefef;
+    text-align: center;
+}
+
+.footer p {
+    margin-bottom: 0;
+}
