@@ -1,20 +1,86 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Ubuntu&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Ubuntu&display=swap");
 
-*{
-    font-family: 'Ubuntu', sans-serif;
+* {
+    font-family: "Ubuntu", sans-serif;
 }
 
-h1, h2, h3, h4, h5, h6{
-    font-family: 'Montserrat', sans-serif;
+body {
+    background: #fceabb; /* fallback for old browsers */
+    background: -webkit-linear-gradient(
+        to right,
+        #f8b500,
+        #fceabb
+    ); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(
+        to right,
+        #f8b500,
+        #fceabb
+    ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
-.contenido {
-    min-height: 82vh;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Montserrat", sans-serif;
+    color: #343a40;
+}
+
+.add-cd {
+    display: flex;
+    justify-content: center;
+}
+
+.add-cd a {
+    align-self: center;
+}
+
+.view-product ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.media div ul{
+    list-style: none;
+    padding: 0;
+}
+
+.media div ul li button, .media div ul li a{
+    width: 100%;
+}
+
+.cost,
+.description,
+.duration,
+.release {
+    margin: 1em 0em;
+}
+
+.bg-form, .view-product {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    -webkit-box-shadow: 1px 34px 77px 0px rgba(255,136,0,1);
+    -moz-box-shadow: 1px 34px 77px 0px rgba(255,136,0,1);
+    box-shadow: 1px 34px 77px 0px rgba(255,136,0,1);
+    Copy Text
+}
+
+.form-control:focus {
+    border-color: #f8b500;
+    box-shadow: 0 0 0 .1rem rgba(255,136,0,1);
+    
+}
+
+.img-centered{
+    align-self: center;
 }
 
 .footer {
     padding: 3em 0;
-    background-color: #666;
+    background-color: #343a40;
     color: #efefef;
     text-align: center;
 }
