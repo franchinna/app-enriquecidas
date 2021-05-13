@@ -13,8 +13,8 @@
 
 <body>
 
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
+    <header class="mb-5">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <a class="navbar-brand" href="#">Cidi Market</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Abrir/cerrar menú de navegación">
                 <span class="navbar-toggler-icon"></span>
@@ -43,19 +43,22 @@
                 </ul>
             </div>
         </nav>
-    </header>
 
-    <main class="">
+        
         @if(Session::has('message'))
         <div class="alert alert-{{ Session::get('message_type') ?? 'success' }}">{{ Session::get('message') }}</div>
         @endif
+    </header>
+
+    <main class="">
 
         @yield('main')
     </main>
 
     <footer>
         <div class="footer mt-5">
-            <p>Copyright &copy; Da Vinci 2021</p>
+            <p>Copyright &copy; Franco Cinnante</p>
+            <p>Aplicaciones Enriquecidas 2021 🥑</p>
         </div>
     </footer>
 

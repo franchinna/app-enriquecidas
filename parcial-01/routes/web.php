@@ -38,6 +38,14 @@ Route::prefix('/cds')->group(function() {
         ->name('cds.create');
 
     Route::get('/{cd}', [CdsController::class, 'view'])
-        ->name('cds.view');
+    ->name('cds.view');
 
+    Route::get('/{cd}/edit', [CdsController::class, 'editForm'])
+    ->name('cds.editForm');
+
+    Route::put('/{cd}/edit', [CdsController::class, 'edit'])
+    ->name('cds.edit');
+
+    Route::delete('/{cd}/delete', [CdsController::class, 'delete'])
+        ->name('cds.delete');
 });

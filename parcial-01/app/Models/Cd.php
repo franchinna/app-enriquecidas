@@ -28,6 +28,11 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Cd whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Cd whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property int $artist_id
+ * @property-read \App\Models\Artist $artist
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Genre[] $genres
+ * @property-read int|null $genres_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Cd whereArtistId($value)
  */
 class Cd extends Model
 {
@@ -43,4 +48,22 @@ class Cd extends Model
       'cost',
       'release_date',
    ];
+
+   /** @var string[] Reglas de validacion */
+   public static $rules = [
+      'title' => 'required',
+      'description' => 'required|min:10',
+      'duration' => 'required|numeric',
+      'cost' => 'required|numeric',
+   ];
+
+   public function artist(){
+
+      return $this->belongsTo(Artist::class, 'artist_id', 'artist_id');
+   }
+
+   public function genres(){
+
+      return $this->belongsToMany(Genre::class, 'cds_has_genres', 'cd_id', 'genre_id', 'cd_id', 'genre_id');
+   }
 }

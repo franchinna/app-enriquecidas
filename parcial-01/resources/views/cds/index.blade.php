@@ -17,7 +17,7 @@
             <p>Discographies</p>
         </div>
         <div class="col-md-3 text-center add-cd my-mb-0 my-mb-0 my-2">
-            <a class="btn btn-light" href="<?= url('/cds/new'); ?>" role="button">
+            <a class="btn btn-light" href="{{ url('/cds/new') }}" role="button">
                 <i class="bi bi-plus-circle-dotted mr-2"></i>Add a new CD to the list
             </a>
         </div>
@@ -34,7 +34,13 @@
                             <a href="{{route('cds.view', ['cd' => $cd->cd_id])}}" data-abc="true">{{$cd->title}}</a>
                         </h2>
                         <ul class="list-inline list-inline-dotted mb-3 mb-lg-2">
-                            <li class="list-inline-item"><a href="#" class="text-muted" data-abc="true">Genero</a></li>
+                            <li class="list-inline-item"><a href="#" class="text-muted" data-abc="true">{{$cd->artist->name}} -     
+                            @if($cd->genres->count() > 0)
+                                @foreach($cd->genres as $genre)
+                                    {{$genre->name}}
+                                @endforeach
+                            @endif
+                            </a></li>
                         </ul>
                         <p class="mb-3">{{Str::limit($cd->description, 150)}}</p>
                         <ul class="list-inline list-inline-dotted mb-0">
@@ -58,7 +64,7 @@
                                 </button>
                             </li>
                             <li>
-                                <a role="button" type="button" class="btn btn-outline-secondary mt-1">
+                                <a role="button" type="button" class="btn btn-outline-secondary mt-1" href="{{ route('cds.editForm', ['cd'=> $cd->cd_id]) }}">
                                 <i class="bi bi-pencil-square mr-2"></i>Edit disc
                                 </a>
                             </li>

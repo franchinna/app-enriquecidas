@@ -65,13 +65,11 @@ h6 {
     -webkit-box-shadow: 1px 34px 77px 0px rgba(255,136,0,1);
     -moz-box-shadow: 1px 34px 77px 0px rgba(255,136,0,1);
     box-shadow: 1px 34px 77px 0px rgba(255,136,0,1);
-    Copy Text
 }
 
 .form-control:focus {
-    border-color: #f8b500;
-    box-shadow: 0 0 0 .1rem rgba(255,136,0,1);
-    
+    border-color: #80bdff;
+    box-shadow: 0 0 0 .2rem rgba(0,123,255,.25);
 }
 
 .img-centered{

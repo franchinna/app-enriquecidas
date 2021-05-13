@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 use Illuminate\Database\Seeder;
-
 use Illuminate\Support\Facades\DB;
 
 class CdsSeeder extends Seeder
@@ -22,6 +21,7 @@ class CdsSeeder extends Seeder
             'duration' => 41,
             'cost' => 400,
             'release_date' => '1977-01-21',
+            'artist_id' => 1,
             'created_at' => date('Y-m-d'),
             'updated_at' => date('Y-m-d')
             ],
@@ -32,6 +32,7 @@ class CdsSeeder extends Seeder
             'duration' => 43,
             'cost' => 600,
             'release_date' => '1973-03-01',
+            'artist_id' => 1,
             'created_at' => date('Y-m-d'),
             'updated_at' => date('Y-m-d')
             ],
@@ -42,6 +43,7 @@ class CdsSeeder extends Seeder
             'duration' => 81,
             'cost' => 700,
             'release_date' => '1979-11-30',
+            'artist_id' => 1,
             'created_at' => date('Y-m-d'),
             'updated_at' => date('Y-m-d')
             ],
@@ -52,6 +54,7 @@ class CdsSeeder extends Seeder
             'duration' => 41,
             'cost' => 050,
             'release_date' => '1999-09-13',
+            'artist_id' => 3,
             'created_at' => date('Y-m-d'),
             'updated_at' => date('Y-m-d')
             ],
@@ -66,10 +69,34 @@ class CdsSeeder extends Seeder
             'duration' => 47,
             'cost' => 150,
             'release_date' => '2002-01-25',
+            'artist_id' => 2,
             'created_at' => date('Y-m-d'),
             'updated_at' => date('Y-m-d')
             ],
 
+        ]);
+
+        DB::table('cds_has_genres')->insert([
+            [
+                'cd_id' => 1,
+                'genre_id' => 1,
+            ],
+            [
+                'cd_id' => 2,
+                'genre_id' => 1,
+            ],
+            [
+                'cd_id' => 3,
+                'genre_id' => 1,
+            ],
+            [
+                'cd_id' => 4,
+                'genre_id' => 1,
+            ],
+            [
+                'cd_id' => 5,
+                'genre_id' => 3,
+            ],
         ]);
     }
 }
