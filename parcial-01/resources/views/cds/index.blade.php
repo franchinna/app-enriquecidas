@@ -1,6 +1,6 @@
 <?php
 
-/** @var \App\Models\Cd[]|\Illuminate\Database\Eloquent\Collection $cds */
+/** @var \App\Models\Artist[]|\Illuminate\Database\Eloquent\Collection $cds */
 /** @var array $formParams */
 ?>
 
@@ -31,20 +31,21 @@
 
                     <div class="media-body">
                         <h2 class="media-title font-weight-semibold">
-                            <a href="{{route('cds.view', ['cd' => $cd->cd_id])}}" data-abc="true">{{$cd->title}}</a>
+                            <a href="{{route('cds.view', ['cd' => $cd->cd_id])}}">{{$cd->title}}</a>
                         </h2>
                         <ul class="list-inline list-inline-dotted mb-3 mb-lg-2">
-                            <li class="list-inline-item"><a href="#" class="text-muted" data-abc="true">{{$cd->artist->name}} -     
+                            <li class="list-inline-item">{{$cd->artist->name}}
                             @if($cd->genres->count() > 0)
+                            -     
                                 @foreach($cd->genres as $genre)
-                                    {{$genre->name}}
+                                    {{$genre->name}} 
                                 @endforeach
                             @endif
-                            </a></li>
+                        </li>
                         </ul>
                         <p class="mb-3">{{Str::limit($cd->description, 150)}}</p>
                         <ul class="list-inline list-inline-dotted mb-0">
-                            <li class="list-inline-item">Release date: <a href="#" data-abc="true">{{$cd->release_date}}</a></li>
+                            <li class="list-inline-item">Release date: {{$cd->release_date}}</li>
                         </ul>
                     </div>
 
@@ -64,7 +65,7 @@
                                 </button>
                             </li>
                             <li>
-                                <a role="button" type="button" class="btn btn-outline-secondary mt-1" href="{{ route('cds.editForm', ['cd'=> $cd->cd_id]) }}">
+                                <a class="btn btn-outline-secondary mt-1" href="{{ route('cds.editForm', ['cd'=> $cd->cd_id]) }}">
                                 <i class="bi bi-pencil-square mr-2"></i>Edit disc
                                 </a>
                             </li>

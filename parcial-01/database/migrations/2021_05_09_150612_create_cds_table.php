@@ -29,7 +29,7 @@ class CreateCdsTable extends Migration
             $table-> text('description');
             $table-> unsignedSmallInteger('duration');
             $table-> unsignedInteger('cost')->nullable();
-            $table-> date('release_date')->nullable();
+            $table-> date('release_date')->format('Y-m-d')->nullable();
 
             $table-> timestamps();
         });

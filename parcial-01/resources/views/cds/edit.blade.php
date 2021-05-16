@@ -1,5 +1,9 @@
-<?php /** @var \Illuminate\Support\ViewErrorBag | \Illuminate\Support\View\MessageBag  $errors*/?>
-<?php /** @var \App\Models\Cd $cd */?>
+<?php 
+/** @var \Illuminate\Support\ViewErrorBag | \Illuminate\Support\View\MessageBag  $errors*/
+/** @var \Illuminate\Database\Eloquent\Collection|\App\Models\Genre[] $genres */
+/** @var \Illuminate\Database\Eloquent\Collection|\App\Models\Artist[] $artists */
+ /** @var \App\Models\Cd $cd */
+ ?>
 
 @extends('layouts.main')
 @section('main')
@@ -40,10 +44,20 @@
                     @error('cost')<div class="invalid-feedback d-block" id="error-cost">{{$message}}</div>@enderror
                 </div>
                 <div class="form-group mb-3">
-                    <label for="relase_date" class="form-label">Release date</label>
-                    <input type="date" name="relase_date" id="relase_date" class="form-control @error('relase_date') is-invalid @enderror" value="{{old('release_date', $cd->release_date)}}" @error('relase_date') aria-describedby="error-relase_date" @enderror>
-                    @error('relase_date')<div class="invalid-feedback d-block" id="error-relase_date">{{$message}}</div>@enderror
+                    <label for="release_date" class="form-label">Release date</label>
+                    <input type="date" name="release_date" id="release_date" class="form-control @error('release_date') is-invalid @enderror" value="{{old('release_date', $cd->release_date)}}" @error('release_date') aria-describedby="error-release_date" @enderror>
+                    @error('release_date')<div class="invalid-feedback d-block" id="error-release_date">{{$message}}</div>@enderror
                 </div>
+                <fieldset class="mb-3">
+                    <legend>Genres</legend>
+                    @foreach($genres as $genre)
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label" for="{{ $genre->name }}">
+                                <input class="form-check-input" type="checkbox" name="genre_id[]" id="{{ $genre->name }}" value="{{ $genre->genre_id }}" @if( in_array($genre->genre_id, old('genre_id', $cd->genres->pluck('genre_id')->toArray())) ) checked @endif> {{ $genre->name }}
+                            </label>
+                        </div>
+                    @endforeach
+                </fieldset>
                 <button type="submit" class="btn btn-warning text-white btn-block">Update CD</button>
             </form>
         </div>

@@ -1,4 +1,7 @@
-<?php /** @var \Illuminate\Support\ViewErrorBag | \Illuminate\Support\View\MessageBag  $errors*/?>
+<?php
+/** @var \Illuminate\Support\ViewErrorBag | \Illuminate\Support\View\MessageBag  $errors*/
+/** @var \Illuminate\Database\Eloquent\Collection|\App\Models\Genre[] $genres */
+?>
 
 @extends('layouts.main')
 @section('main')
@@ -27,6 +30,16 @@
                     @error('description')<div class="invalid-feedback d-block" id="error-description">{{$message}}</div>@enderror
                 </div>
                 <div class="form-group mb-3">
+                    <label for="artist_id" class="form-label">Artists</label>
+                    <select name="artist_id" id="artist" class="form-control @error('artist') is-invalid @enderror"  @error('artist') aria-describedby="error-artists" @enderror >
+                        <option selected>Select An Artists</option>
+                        @foreach($artists as $artist)
+                            <option value="{{$artist->artist_id}}" @if(old('artist_id') == $artist->artist_id) selected @endif>{{$artist->name}}</option>
+                        @endforeach
+                    </select>
+                    @error('artists')<div class="invalid-feedback d-block" id="error-artists">{{$message}}</div>@enderror
+                </div>
+                <div class="form-group mb-3">
                     <label for="duration" class="form-label">Duration (min) </label>
                     <input type="text" name="duration" id="duration" class="form-control @error('duration') is-invalid @enderror" aria-describedby="durationHelp" value="{{old('duration','')}}" @error('duration') aria-describedby="error-duration" @enderror>
                     @error('duration')<div class="invalid-feedback d-block" id="error-duration">{{$message}}</div>@enderror
@@ -37,10 +50,20 @@
                     @error('cost')<div class="invalid-feedback d-block" id="error-cost">{{$message}}</div>@enderror
                 </div>
                 <div class="form-group mb-3">
-                    <label for="relase_date" class="form-label">Release date</label>
-                    <input type="date" name="relase_date" id="relase_date" class="form-control @error('relase_date') is-invalid @enderror" value="{{old('release_date',date('Y-m-d'))}}" @error('relase_date') aria-describedby="error-relase_date" @enderror>
-                    @error('relase_date')<div class="invalid-feedback d-block" id="error-relase_date">{{$message}}</div>@enderror
+                    <label for="release_date" class="form-label">Release date</label>
+                    <input type="date" name="release_date" id="release_date" class="form-control @error('release_date') is-invalid @enderror" value="{{old('release_date',date('Y-m-d'))}}" @error('release_date') aria-describedby="error-release_date" @enderror>
+                    @error('release_date')<div class="invalid-feedback d-block" id="error-release_date">{{$message}}</div>@enderror
                 </div>
+                <fieldset class="mb-3">
+                    <legend>Genres</legend>
+                    @foreach($genres as $genre)
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label" for="{{ $genre->name }}">
+                                <input class="form-check-input" type="checkbox" name="genre_id[]" id="{{ $genre->name }}" value="{{ $genre->genre_id }}" @if( in_array($genre->genre_id, old('genre_id', [])) ) checked @endif> {{ $genre->name }}
+                            </label>
+                        </div>
+                    @endforeach
+                </fieldset>
                 <button type="submit" class="btn btn-warning text-white btn-block">Add disc</button>
             </form>
         </div>

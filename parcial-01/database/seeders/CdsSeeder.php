@@ -68,7 +68,7 @@ class CdsSeeder extends Seeder
             On June 5, 2012, the band released the album`s 10th anniversary edition, to coincide with their fourth studio album Overexposed.[7] ',
             'duration' => 47,
             'cost' => 150,
-            'release_date' => '2002-01-25',
+            'release_date' => date('2002-01-25'),
             'artist_id' => 2,
             'created_at' => date('Y-m-d'),
             'updated_at' => date('Y-m-d')

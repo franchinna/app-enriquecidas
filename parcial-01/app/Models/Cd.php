@@ -47,6 +47,7 @@ class Cd extends Model
       'duration',
       'cost',
       'release_date',
+      'artist_id',
    ];
 
    /** @var string[] Reglas de validacion */
@@ -55,6 +56,7 @@ class Cd extends Model
       'description' => 'required|min:10',
       'duration' => 'required|numeric',
       'cost' => 'required|numeric',
+      'release_date' => 'required|date',
    ];
 
    public function artist(){

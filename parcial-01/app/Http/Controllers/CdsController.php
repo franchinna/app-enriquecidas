@@ -1,8 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Cd;
 
+
+use App\Models\Artist;
+use App\Models\Cd;
+use App\Models\Genre;
 use Illuminate\Http\Request;
 
 class CdsController extends Controller
@@ -20,15 +23,22 @@ class CdsController extends Controller
     }
 
     public function newForm(){
+        
+        $artists = Artist::all();
+        $genres = Genre::all();
 
-        return view('cds.new');
+        return view('cds.new', compact('artists', 'genres'));
     }
 
     public function create(Request $request){
 
         $request->validate(Cd::$rules);
         
-        Cd::create($request->only(['title','description','duration','cost','release_date']));
+        //dd($request);
+
+        $cd = Cd::create($request->only(['title','description','duration','cost','release_date', 'artist_id', 'genre_id']));
+
+        $cd->genres()->attach($request->input('genre_id'));
 
         return redirect()
         ->route('cds.index')
@@ -38,14 +48,19 @@ class CdsController extends Controller
 
     public function editForm(Cd $cd){
 
-        return view('cds.edit', compact('cd'));
+        $artists = Artist::all();
+        $genres = Genre::all();
+
+        return view('cds.edit', compact('cd', 'artists', 'genres'));
     }
 
     public function edit(Request $request, Cd $cd){
 
         $request->validate(Cd::$rules);
-        $cd->update($request->only(['title','description','duration','cost','release_date']));
+        $cd->update($request->only(['title','description','duration','cost','release_date', 'artist_id']));
         
+
+        $cd->genres()->sync($request->input('genre_id'));
 
         return redirect()
         ->route('cds.index')
@@ -55,6 +70,7 @@ class CdsController extends Controller
     
     public function delete(Cd $cd){
 
+        $cd->genres()->detach();
         $cd->delete();
 
         return redirect()
