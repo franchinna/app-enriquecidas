@@ -12,8 +12,7 @@
 </head>
 
 <body>
-
-    <header class="mb-5">
+    <header class="">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <a class="navbar-brand" href="#">Cidi Market</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Abrir/cerrar menú de navegación">
@@ -27,21 +26,26 @@
                     <li class="nav-item">
                         <a class="nav-link <?= url()->current() == url('/cds') ? 'active' : ''; ?>" href="<?= url('/cds'); ?>">Discographies</a>
                     </li>
-                    {{-- @if(auth()->guest())--}}
                     @guest()
                     <li class="nav-item">
                         <a class="nav-link <?= url()->current() == url('/login') ? 'active' : ''; ?>" href="<?= url('/login'); ?>">Login</a>
                     </li>
                     @endguest
-                    {{-- @else--}}
                     @auth()
                     <li class="nav-item">
                         <a class="nav-link <?= url()->current() == url('/logout') ? 'active' : ''; ?>" href="<?= url('/logout'); ?>">Logout</a>
                     </li>
-                    {{-- @endif--}}
                     @endauth
                 </ul>
             </div>
+
+                            
+            <form class="form-inline my-2 my-lg-0 <?= url()->current() == url('/cds') ? 'd-block' : 'd-none'; ?>" 
+                action="{{ route('cds.index') }}" method="GET">
+                <label for="title" class=" d-none">Title</label>
+                <input class="form-control mr-sm-2" id="title" type="text" name="title" placeholder="Name of CD" aria-label="Search" value="{{ $formParams['title'] ?? null }}">
+                <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Search</button>
+            </form>
         </nav>
 
         
@@ -56,7 +60,7 @@
     </main>
 
     <footer>
-        <div class="footer mt-5">
+        <div class="footer">
             <p>Copyright &copy; Franco Cinnante</p>
             <p>Aplicaciones Enriquecidas 2021 🥑</p>
         </div>
@@ -70,6 +74,12 @@
     $( document ).ready(function() {
         $('#exampleModalCenter').modal('toggle')
     });
+
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+
+
 </script>
 
 </body>

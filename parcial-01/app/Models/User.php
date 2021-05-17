@@ -36,7 +36,11 @@ use Illuminate\Notifications\Notifiable;
  */
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    //use HasFactory, Notifiable;
+    use Notifiable;
+
+    protected $table = 'users';
+    protected $primaryKey = 'user_id';
 
     /**
      * The attributes that are mass assignable.
@@ -47,6 +51,13 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+    ];
+
+    /** @var string[] Reglas de validacion */
+    public static $rules = [
+        
+        'email' => 'required',
+        'password' => 'required',
     ];
 
     /**
@@ -65,6 +76,6 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        //'email_verified_at' => 'datetime',
     ];
 }

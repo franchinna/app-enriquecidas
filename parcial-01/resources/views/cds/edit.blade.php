@@ -6,9 +6,11 @@
  ?>
 
 @extends('layouts.main')
+
+@section('title', $cd->title . ' - Cidi Market')
 @section('main')
 
-<div class="container">
+<div class="container py-4">
     <div class="row justify-content-center bg-light rounded m-2">
         <div class="col-md-6 align-self-center p-4">
             <img src="" alt="" class="img-fluid">
@@ -58,8 +60,20 @@
                         </div>
                     @endforeach
                 </fieldset>
-                <button type="submit" class="btn btn-warning text-white btn-block">Update CD</button>
+
+                <button type="submit" class="btn btn-warning text-white float-right">
+                    Update CD
+                </button>
+                
             </form>
+                
+                <form action="{{route('cds.delete', ['cd'=>$cd->cd_id])}}" method="post">
+                    @csrf
+                    @method('DELETE')
+                    <button href="" class="btn btn-outline-danger mr-2 float-right">
+                        <i class="bi bi-x-octagon mr-2"></i>Detele CD
+                    </button>
+                </form>
         </div>
     </div>
 </div>

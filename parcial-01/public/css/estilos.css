@@ -28,6 +28,43 @@ h6 {
     color: #343a40;
 }
 
+.card-header{
+    font-size: .8em;
+}
+
+.card-title{
+    font-size:1.3em;
+    font-weight: bold;
+}
+
+.pagination{
+    justify-content: center;
+}
+
+.page-link{
+    color: #FF8800;
+}
+
+.page-link:hover{
+    color: #CC6E00;
+}
+
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #FF8800;
+    border-color: #FF8800;
+}
+
+
+a{
+    color: #FF8800;
+}
+a:hover{
+    text-decoration: none;
+    color: #CC6E00;
+}
+
 .add-cd {
     display: flex;
     justify-content: center;
@@ -70,6 +107,13 @@ h6 {
 .form-control:focus {
     border-color: #80bdff;
     box-shadow: 0 0 0 .2rem rgba(0,123,255,.25);
+}
+
+.view-product .cost{
+    font-size: 2em;
+    color: #FF8800;
+    font-weight: bold;
+    margin: .4em 0;
 }
 
 .img-centered{

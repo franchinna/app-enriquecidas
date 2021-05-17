@@ -30,22 +30,24 @@ Route::get('/logout', [AuthController::class, 'logout'])
 Route::prefix('/cds')->group(function() {
     Route::get('/', [CdsController::class, 'index'])
         ->name('cds.index');
-  
-    Route::get('/new', [CdsController::class, 'newForm'])
-        ->name('cds.new-form');
+    
+    Route::middleware(['auth'])->group(function() {
+        Route::get('/new', [CdsController::class, 'newForm'])
+            ->name('cds.new-form');
 
-    Route::post('/new', [CdsController::class, 'create'])
-        ->name('cds.create');
+        Route::post('/new', [CdsController::class, 'create'])
+            ->name('cds.create');
+
+        Route::get('/{cd}/edit', [CdsController::class, 'editForm'])
+        ->name('cds.editForm');
+
+        Route::put('/{cd}/edit', [CdsController::class, 'edit'])
+        ->name('cds.edit');
+
+        Route::delete('/{cd}/delete', [CdsController::class, 'delete'])
+            ->name('cds.delete');
+    });
 
     Route::get('/{cd}', [CdsController::class, 'view'])
-    ->name('cds.view');
-
-    Route::get('/{cd}/edit', [CdsController::class, 'editForm'])
-    ->name('cds.editForm');
-
-    Route::put('/{cd}/edit', [CdsController::class, 'edit'])
-    ->name('cds.edit');
-
-    Route::delete('/{cd}/delete', [CdsController::class, 'delete'])
-        ->name('cds.delete');
+        ->name('cds.view');
 });

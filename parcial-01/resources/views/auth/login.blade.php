@@ -13,12 +13,15 @@
 
 <body>
 
+    @if(Session::has('message'))
+    <div class="alert alert-{{ Session::get('message_type') ?? 'success' }}">{{ Session::get('message') }}</div>
+    @endif
+
     <header>
         <a href="<?= url('/'); ?>" class="btn btn-dark m-3" role="button">
             <i class="bi bi-backspace"></i> Back to home page
         </a>
-    </header>
-
+    </header>    
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-12 text-center m-3">
@@ -31,12 +34,23 @@
                     @csrf
                     <div class="form-group mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" name="email" id="email" class="form-control" aria-describedby="emailHelp">
-                        <small id="emailHelp" class="form-text text-muted ">We'll never share your email with anyone else.</small>
+                        <input type="email" name="email" id="email" class="form-control @error('email') is-invalid @enderror" value="{{old('email','')}}" @error('email') aria-describedby="error-email" @enderror>
+
+                        @error('email')
+                            <div class="invalid-feedback d-block" id="error-email">{{$message}}</div>
+                        @enderror
+
+                        <small id="emailHelp" class="form-text text-muted @error('email') d-none @enderror">
+                            We'll never share your email with anyone else.
+                        </small>
                     </div>
                     <div class="form-group mb-3">
                         <label for="password" class="form-label">Password</label>
-                        <input type="password" name="password" id="password" class="form-control">
+                        <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror" value="{{old('password','')}}" @error('password') aria-describedby="error-password" @enderror>
+
+                        @error('password')
+                            <div class="invalid-feedback d-block" id="error-password">{{$message}}</div>
+                        @enderror
                     </div>
                     <button type="submit" class="btn btn-warning text-white btn-block">Log in</button>
                     <small><a href="#">Forgot your password?</a></small>

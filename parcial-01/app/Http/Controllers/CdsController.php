@@ -12,9 +12,19 @@ class CdsController extends Controller
 {
     public function index(Request $request){
 
-        $cds = Cd::with('artist', 'genres')->get();
 
-        return view('cds.index', compact('cds'));
+        $formParams = [];
+
+        $cdsQuery = Cd::with('artist', 'genres');
+
+        if($request -> query('title')){
+            $cdsQuery->where('title', 'like', '%' . $request -> query('title') . '%');
+            $formParams['title'] = $request -> query('title');
+        }
+
+        $cds = $cdsQuery->paginate(3)->withQueryString();
+
+        return view('cds.index', compact('cds', 'formParams'));
     }
 
     public function view(Cd $cd){
