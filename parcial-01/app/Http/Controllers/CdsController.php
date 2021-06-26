@@ -24,6 +24,8 @@ class CdsController extends Controller
 
         $cds = $cdsQuery->paginate(3)->withQueryString();
 
+        //dd($cds);
+
         return view('cds.index', compact('cds', 'formParams'));
     }
 
