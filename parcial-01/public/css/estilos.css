@@ -28,13 +28,19 @@ h6 {
     color: #343a40;
 }
 
-.card-header{
-    font-size: .8em;
+.o-dkp{
+    display: none;
 }
 
 .card-title{
-    font-size:1.3em;
-    font-weight: bold;
+    font-size:1.1em;
+    font-weight: 200;
+    height: 45px;
+}
+
+.card-footer{
+    text-align: end;
+    background-color: white;
 }
 
 .pagination{
@@ -55,7 +61,6 @@ h6 {
     background-color: #FF8800;
     border-color: #FF8800;
 }
-
 
 a{
     color: #FF8800;
@@ -130,3 +135,16 @@ a:hover{
 .footer p {
     margin-bottom: 0;
 }
+
+
+
+@media (min-width: 992px) {
+    .o-dkp {
+      display: block;
+    }
+
+    .navbar-collapse{
+        justify-content: right;
+    }
+  }
+  

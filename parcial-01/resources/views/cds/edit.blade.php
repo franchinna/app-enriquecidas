@@ -71,7 +71,7 @@
                     @csrf
                     @method('DELETE')
                     <button href="" class="btn btn-outline-danger mr-2 float-right">
-                        <i class="bi bi-x-octagon mr-2"></i>Detele CD
+                        Detele CD <i class="bi bi-x-octagon ml-2"></i>
                     </button>
                 </form>
         </div>

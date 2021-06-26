@@ -20,11 +20,11 @@
                     @csrf
                     @method('DELETE')
                     <button href="" class="btn btn-danger mr-2">
-                        <i class="bi bi-x-octagon mr-2"></i>Detele CD
+                       Detele CD <i class="bi bi-x-octagon ml-2"></i>
                     </button>
                 </form>
                 <a href="{{ route('cds.editForm', ['cd'=> $cd->cd_id]) }}" class="btn btn-secondary">
-                    <i class="bi bi-pencil-square"></i>Edit CD
+                   Edit CD <i class="bi bi-pencil-square ml-2"></i>
                 </a>
                 @endauth
             </div>
@@ -50,7 +50,7 @@
                 </ul>
 
                 <button type="button" disabled class="btn btn-warning mt-4 text-white w-100 btn-block">
-                        <i class="bi bi-bag-plus mr-2"></i>Add to cart
+                        Add to cart <i class="bi bi-bag-plus ml-2"></i>
                 </button>
             </div>
          </div>

@@ -19,7 +19,7 @@
         @auth
         <div class="col-md-3 text-center add-cd my-mb-0 my-mb-0 my-2">
             <a class="btn btn-light" href="{{ url('/cds/new') }}" role="button">
-                <i class="bi bi-plus-circle-dotted mr-2"></i>Add a new CD to the list
+                Add a new CD to the list <i class="bi bi-plus-square ml-2"></i>
             </a>
         </div>
         @endauth
@@ -62,18 +62,18 @@
                         </div>
                         <div class="text-muted">Duration {{$cd->duration}} min</div>
 
-                        <ul class="d-grid gap-2">
-                            <li>
-                                <span class="d-inline-block mt-4  tabindex="0" data-toggle="tooltip" title="Cooming Soon baby">
-                                    <button type="button" style="pointer-events: none;" disabled class="btn btn-warning text-white">
-                                        <i class="bi bi-bag-plus mr-2"></i>Add to cart
+                        <ul class="d-grid gap-2 list-inline ">
+                            <li class="list-inline-item">
+                                <span class="d-inline-block mt-4" data-toggle="tooltip" title="Cooming Soon baby">
+                                    <button style="pointer-events: none;" disabled class="btn btn-warning text-white">
+                                        <i class="bi bi-basket"></i>
                                     </button>
                                 </span>
                             </li>
                             @auth
-                            <li>
-                                <a class="btn btn-outline-secondary mt-1" href="{{ route('cds.editForm', ['cd'=> $cd->cd_id]) }}">
-                                <i class="bi bi-pencil-square mr-2"></i>Edit disc
+                            <li class="list-inline-item">
+                                <a class="btn btn-outline-secondary" href="{{ route('cds.editForm', ['cd'=> $cd->cd_id]) }}">
+                                    <i class="bi bi-pencil-square"></i>
                                 </a>
                             </li>
                             @endauth
@@ -83,6 +83,7 @@
             </div>
         </div>
         @endforeach
+
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col">
@@ -93,4 +94,3 @@
     </div>
 </div>
 @endsection
-
