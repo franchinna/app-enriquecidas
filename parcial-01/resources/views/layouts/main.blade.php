@@ -53,7 +53,7 @@
                     </div>
 
                     <div class="ml-2">
-                        <a href="" class="btn btn-outline-light">
+                        <a href="<?= url('/cart'); ?>" class="btn btn-outline-light">
                             <i class="bi bi-basket"></i>
                         </a>
                     </div>
@@ -69,8 +69,7 @@
     </header>
 
     <main class="">
-
-        @yield('main')
+            @yield('main')
     </main>
 
     <footer>

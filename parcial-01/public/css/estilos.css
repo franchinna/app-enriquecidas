@@ -28,6 +28,19 @@ h6 {
     color: #343a40;
 }
 
+.banner{
+    height: 300px; 
+    background-color: orange;
+    background-image: url("../imgs/banner.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.banner h1{
+    color: #fff;
+}
+
 .o-dkp{
     display: none;
 }
@@ -125,6 +138,10 @@ a:hover{
     align-self: center;
 }
 
+.td-center{
+    text-align: center;
+}
+
 .footer {
     padding: 3em 0;
     background-color: #343a40;
@@ -135,6 +152,7 @@ a:hover{
 .footer p {
     margin-bottom: 0;
 }
+
 
 
 

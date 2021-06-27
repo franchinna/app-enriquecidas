@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CdsController;
+use App\Http\Controllers\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,3 +52,10 @@ Route::prefix('/cds')->group(function() {
     Route::get('/{cd}', [CdsController::class, 'view'])
         ->name('cds.view');
 });
+
+
+Route::prefix('/cart')->group(function() {
+    Route::get('/', [CartController::class, 'index'])
+        ->name('cart.index');
+});
+

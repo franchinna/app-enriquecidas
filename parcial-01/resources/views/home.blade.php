@@ -7,10 +7,8 @@
 
 @section('title', 'Home - Cidi Market')
 
-
-
 @section('main')
-<div class="container-fluid banner" style="height: 300px; background-color: orange;">
+<div class="container-fluid banner">
     <div class="container">
         <div class="row align-items-center">
             <div class="col">
