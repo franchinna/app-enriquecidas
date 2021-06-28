@@ -22,8 +22,10 @@ Route::get('/', [HomeController::class, 'index'])
 
 Route::get('/login', [AuthController::class, 'loginForm'])
     ->name('auth.login-form');
+
 Route::post('/login', [AuthController::class, 'login'])
     ->name('auth.login');
+
 Route::get('/logout', [AuthController::class, 'logout'])
     ->name('auth.logout');
 
@@ -46,16 +48,27 @@ Route::prefix('/cds')->group(function() {
         ->name('cds.edit');
 
         Route::delete('/{cd}/delete', [CdsController::class, 'delete'])
-            ->name('cds.delete');
+            ->name('cds.delete');     
     });
 
     Route::get('/{cd}', [CdsController::class, 'view'])
         ->name('cds.view');
 });
 
+Route::middleware(['auth'])->group(function() {
+    Route::get('order.confirm', [CartController::class, 'confirmOrder' ])
+    ->name('cart.confirmOrder');   
+
+});
 
 Route::prefix('/cart')->group(function() {
     Route::get('/', [CartController::class, 'index'])
         ->name('cart.index');
 });
+
+Route::get('add-to-cart/{id}', [CartController::class, 'addToCart' ])
+        ->name('cart.addToCart');
+
+Route::get('remove-to-cart/{id}', [CartController::class, 'delete' ])
+        ->name('cart.delete');
 

@@ -23,7 +23,12 @@ class Cart extends Model
 {
     //use HasFactory;
     
-    protected $table = 'cart';
+    protected $table = 'cart'; 
+    
+    protected $fillable = [
+        'cd_id',
+        'quantity',
+     ];
 
     public function cd(){
 

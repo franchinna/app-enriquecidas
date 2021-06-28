@@ -49,9 +49,9 @@
                     <li class="release"><b>Release date:</b> {{ $cd->release_date }}</li>
                 </ul>
 
-                <button type="button" disabled class="btn btn-warning mt-4 text-white w-100 btn-block">
+                <a href="{{ url('add-to-cart/'. $cd->cd_id) }}" type="button" class="btn btn-warning mt-4 w-100 btn-block">
                         Add to cart <i class="bi bi-bag-plus ml-2"></i>
-                </button>
+                </a>
             </div>
          </div>
     </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Models\Artist;
+use App\Models\Cart;
 use App\Models\Cd;
 use App\Models\Genre;
 use Illuminate\Http\Request;
@@ -84,6 +85,9 @@ class CdsController extends Controller
 
         $cd->genres()->detach();
         $cd->delete();
+
+        Cart::where('cd_id', $cd->cd_id)
+        ->delete();
 
         return redirect()
         ->route('cds.index')

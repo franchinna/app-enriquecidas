@@ -62,20 +62,21 @@
                         </div>
                         <div class="text-muted">Duration {{$cd->duration}} min</div>
 
-                        <ul class="d-grid gap-2 list-inline ">
+                        <ul class="d-grid gap-2 list-inline mt-2">
                             <li class="list-inline-item">
-                                <span class="d-inline-block mt-4" data-toggle="tooltip" title="Cooming Soon baby">
-                                    <button style="pointer-events: none;" disabled class="btn btn-warning text-white">
+                                    <a href="{{ url('add-to-cart/'. $cd->cd_id) }}" class="btn btn-warning">
                                         <i class="bi bi-basket"></i>
-                                    </button>
+                                    </a>
                                 </span>
                             </li>
                             @auth
-                            <li class="list-inline-item">
-                                <a class="btn btn-outline-secondary" href="{{ route('cds.editForm', ['cd'=> $cd->cd_id]) }}">
-                                    <i class="bi bi-pencil-square"></i>
-                                </a>
-                            </li>
+                                {{--@if(session->user(''))--}}
+                                <li class="list-inline-item">
+                                    <a class="btn btn-outline-secondary" href="{{ route('cds.editForm', ['cd'=> $cd->cd_id]) }}">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
+                                </li>
+                                {{--@endif--}}
                             @endauth
                         </ul>
                     </div>

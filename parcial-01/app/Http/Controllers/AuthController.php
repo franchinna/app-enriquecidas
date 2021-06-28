@@ -27,7 +27,7 @@ class AuthController extends Controller
         }
 
         return redirect()
-            ->route('cds.index')
+            ->route('home')
             ->with('message', 'Welcome!')
             ->with('message_type', 'success');
 
@@ -38,7 +38,7 @@ class AuthController extends Controller
         auth()->logout();
 
         return redirect()
-            ->route('cds.index')
+            ->route('home')
             ->with('message', 'See you baby 🏴‍☠️👋🏻');
     }
 }

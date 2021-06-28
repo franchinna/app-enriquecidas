@@ -30,13 +30,13 @@
                                     <img src="<?= url('imgs/image-square.png')?>" alt="" class="img-fluid p-2">
                                     <div class="card-body">
                                         <h2 class="card-title">{{$cd->title}}</h2>
-                                        <p class="card-text">USD {{$cd->cost / 100 }}</p>
+                                        <p class="card-text font-weight-bold">USD {{$cd->cost / 100 }}</p>
                                     </div>
                                 </a>
                                 <div class="card-footer">
-                                    <button class="btn btn btn-warning text-white">
+                                    <a href="{{ url('add-to-cart/'. $cd->cd_id) }}" class="btn btn btn-warning text-white">
                                         <i class="bi bi-basket"></i>
-                                    </button>
+                                    </a>
                                 </div>
                             </div>
                         </div>

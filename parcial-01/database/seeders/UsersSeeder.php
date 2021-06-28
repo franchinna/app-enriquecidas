@@ -18,14 +18,39 @@ class UsersSeeder extends Seeder
         //
 
         DB::table('users')->insert([
-        [
-            'user_id' => 1,
-            'email' => 'test@test.com',
-            'name' => 'Test',
-            'password' => Hash::make('123456'),
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s'),
-        ]
+
+            //Super user. Puede crear, actualizar y borrar cds. Comprar. 
+            [
+                'user_id' => 1,
+                'email' => 'admin@admin.com',
+                'name' => 'Admin',
+                'rol' => 1,
+                'password' => Hash::make('123456'),
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+
+            //user admin puede crear cds. 
+            [
+                'user_id' => 2,
+                'email' => 'test@test.com',
+                'name' => 'Test',
+                'rol' => 2,
+                'password' => Hash::make('123456'),
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+            
+            //Usuario normal, solo puede comprar. 
+            [
+                'user_id' => 3,
+                'email' => 'terricola@terricola.com',
+                'name' => 'terricola',
+                'rol' => 3,
+                'password' => Hash::make('123456'),
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
         ]);
     }
 }
