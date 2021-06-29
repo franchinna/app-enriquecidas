@@ -119,6 +119,11 @@ a:hover{
     width: 100%;
 }
 
+.price{
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
 .cost,
 .description,
 .duration,

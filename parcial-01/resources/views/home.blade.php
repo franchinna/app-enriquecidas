@@ -34,7 +34,7 @@
                                     </div>
                                 </a>
                                 <div class="card-footer">
-                                    <a href="{{ url('add-to-cart/'. $cd->cd_id) }}" class="btn btn btn-warning text-white">
+                                    <a href="{{ url('add-to-cart/'. $cd->cd_id) }}" class="btn btn btn-warning">
                                         <i class="bi bi-basket"></i>
                                     </a>
                                 </div>
@@ -61,7 +61,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <a role="button" class="btn btn-warning text-white" href="<?= url('/cds'); ?>">Go to Discographies</a>
+                <a role="button" class="btn btn-warning" href="<?= url('/cds'); ?>">Go to Discographies</a>
             </div>
         </div>
     </div>

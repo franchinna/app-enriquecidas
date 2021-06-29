@@ -28,4 +28,11 @@ class Artist extends Model
     //use HasFactory;
     protected $table = 'artists';
     protected $primaryKey = 'artist_id';
+
+
+       /** @var string[] Reglas de validacion */
+   public static $rules = [
+    'artist_id' => 'required',
+ ];
+
 }

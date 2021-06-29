@@ -9,23 +9,25 @@
 
     <div class="container  py-4">
         <div class="row justify-content-center view-product bg-form">
-            <div class="col-12 mb-3" style="text-align: end">
+            <div class="col-12 mb-3 text-end">
                 @guest
                 <p class="alert alert-info text-center" role="alert">
                     If you want to make changes, please <a href="{{ route('auth.login-form') }}">login</a>
                 </p>
                 @endguest
                 @auth
-                <form action="{{route('cds.delete', ['cd'=>$cd->cd_id])}}" method="post" style="display: inline-block">
-                    @csrf
-                    @method('DELETE')
-                    <button href="" class="btn btn-danger mr-2">
-                       Detele CD <i class="bi bi-x-octagon ml-2"></i>
-                    </button>
-                </form>
-                <a href="{{ route('cds.editForm', ['cd'=> $cd->cd_id]) }}" class="btn btn-secondary">
-                   Edit CD <i class="bi bi-pencil-square ml-2"></i>
-                </a>
+                    @if ($userRol < 2)
+                    <form action="{{route('cds.delete', ['cd'=>$cd->cd_id])}}" method="post" class="d-inline">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-danger mr-2">
+                        Detele CD <i class="bi bi-x-octagon ml-2"></i>
+                        </button>
+                    </form>
+                    <a href="{{ route('cds.editForm', ['cd'=> $cd->cd_id]) }}" class="btn btn-secondary">
+                    Edit CD <i class="bi bi-pencil-square ml-2"></i>
+                    </a>
+                    @endif
                 @endauth
             </div>
 
@@ -38,7 +40,7 @@
                 <small>{{$cd->artist->name }} | 
                     @if($cd->genres->count() > 0)
                         @foreach($cd->genres as $genre)
-                            <span class="badge bg-warning text-white">{{$genre->name}}</span> 
+                            <span class="badge bg-warning">{{$genre->name}}</span> 
                         @endforeach
                     @endif
                 </small>
@@ -49,7 +51,7 @@
                     <li class="release"><b>Release date:</b> {{ $cd->release_date }}</li>
                 </ul>
 
-                <a href="{{ url('add-to-cart/'. $cd->cd_id) }}" type="button" class="btn btn-warning mt-4 w-100 btn-block">
+                <a href="{{ url('add-to-cart/'. $cd->cd_id) }}" class="btn btn-warning mt-4 w-100 btn-block">
                         Add to cart <i class="bi bi-bag-plus ml-2"></i>
                 </a>
             </div>

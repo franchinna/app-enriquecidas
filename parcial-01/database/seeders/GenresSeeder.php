@@ -17,7 +17,7 @@ class GenresSeeder extends Seeder
         DB::table('genres')->insert([
             [
                 'genre_id' => 1,
-                'name' => 'Rock and Roll',
+                'name' => 'Rock',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

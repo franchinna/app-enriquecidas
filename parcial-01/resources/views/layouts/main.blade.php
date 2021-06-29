@@ -45,8 +45,8 @@
 
                     <div class="<?= url()->current() == url('/cds') ? 'd-block ml-lg-2' : 'd-none' ?>">
                         <form class="d-flex my-2 my-lg-0" action="{{ route('cds.index') }}" method="GET">
-                            <label for="title" class=" d-none">Title</label>
-                            <input class="form-control me-2 mr-2" id="title" type="search" name="title" placeholder="CD name" aria-label="Search" value="{{ $formParams['title'] ?? null }}">
+                            <label for="cdtitle" class="sr-only">Title</label>
+                            <input class="form-control me-2 mr-2" id="cdtitle" type="search" name="cdtitle" placeholder="CD name" aria-label="Search" value="{{ $formParams['cdtitle'] ?? null }}">
                             <button class="btn btn-outline-warning" type="submit">
                                 <i class="bi bi-search"></i>
                             </button>

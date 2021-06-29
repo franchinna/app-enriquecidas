@@ -59,8 +59,8 @@
                                 </p>
                             @endguest
                             @auth()
-                                <a href="" class="btn btn-warning" type="button" data-toggle="modal"
-                                    data-target="#exampleModal">Check Out</a>
+                                <a href="#" class="btn btn-warning" data-toggle="modal"
+                                    data-target="#cartConfirm">Check Out</a>
                             @endauth
                         </div>
                     </div>
@@ -69,7 +69,7 @@
         </div>
 
         <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="cartConfirm" tabindex="-1" aria-labelledby="cartConfirmLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -81,12 +81,12 @@
                         </div>
                         <div class="modal-body text-center">
                             <p style="font-size:4rem">
-                                <img src="<?= url('imgs/email.svg'); ?>"" alt="" class="img-fluid w-50">
+                                <img src="<?= url('imgs/email.svg'); ?>" alt="" class="img-fluid w-50">
                             </p>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            <a href="{{ url('order.confirm')}}" type="button" class="btn btn-success">Yes, confirm</a>
+                            <a href="{{ url('order.confirm')}}" class="btn btn-success">Yes, confirm</a>
                         </div>
                     </div>
                 </div>

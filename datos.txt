@@ -7,7 +7,16 @@ DWN5A.
 Cinnante.
 Franco.
 
-Carácter de entrega (1er parcial)
+Carácter de entrega (2do parcial)
 
-user: test@test.com
-pass: 123456
+
+Usuarios 
+
+//super user. hace todo. 
+admin@admin.com', 123456
+
+//user test puede crear cds. 
+test@test.com', 123456
+  
+//Solo puede comprar. 
+terricola@terricola.com , 123456

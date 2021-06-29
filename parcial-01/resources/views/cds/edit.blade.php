@@ -13,10 +13,9 @@
 <div class="container py-4">
     <div class="row justify-content-center bg-light rounded m-2">
         <div class="col-md-6 align-self-center p-4">
-            <img src="" alt="" class="img-fluid">
             <h1>Update CD</h1>
             <p>Please, complete the form to update the album to the sales list</p>
-            <img src="<?= url('imgs/add_post.svg'); ?>" alt="" class="img-fluid d-none d-md-block">
+            <img src="<?= url('imgs/add_post.svg'); ?>" alt="Image edit form" class="img-fluid d-none d-md-block">
         </div>
 
         <div class="col-md-6 p-4">
@@ -32,17 +31,17 @@
                 </div>
                 <div class="form-group mb-3">
                     <label for="description" class="form-label">Description</label>
-                    <textarea type="textarea" name="description" id="description" class="form-control  @error('description') is-invalid @enderror" aria-describedby="descriptionHelp">{{old('description',$cd->description)}}</textarea>
+                    <textarea name="description" id="description" class="form-control  @error('description') is-invalid @enderror" @error('description') aria-describedby="error-description"@enderror>{{old('description',$cd->description)}}</textarea>
                     @error('description')<div class="invalid-feedback d-block" id="error-description">{{$message}}</div>@enderror
                 </div>
                 <div class="form-group mb-3">
                     <label for="duration" class="form-label">Duration (min) </label>
-                    <input type="text" name="duration" id="duration" class="form-control @error('duration') is-invalid @enderror" aria-describedby="durationHelp" value="{{old('duration',$cd->duration)}}" @error('duration') aria-describedby="error-duration" @enderror>
+                    <input type="text" name="duration" id="duration" class="form-control @error('duration') is-invalid @enderror" @error('duration') aria-describedby="durationHelp" @enderror value="{{old('duration',$cd->duration)}}" @error('duration') aria-describedby="error-duration" @enderror>
                     @error('duration')<div class="invalid-feedback d-block" id="error-duration">{{$message}}</div>@enderror
                 </div>
                 <div class="form-group mb-3">
-                    <label for="cost" class="form-label">Cost (USD) </label>
-                    <input type="text" name="cost" id="cost" class="form-control @error('cost') is-invalid @enderror" aria-describedby="costHelp" value="{{old('cost', $cd->cost)}}" @error('cost') aria-describedby="error-cost" @enderror>
+                    <label for="cost" class="form-label">Cost in cents (USD)</label>
+                    <input type="text" name="cost" id="cost" class="form-control @error('cost') is-invalid @enderror" @error('cost') aria-describedby="costHelp"  @enderror value="{{old('cost', $cd->cost)}}" @error('cost') aria-describedby="error-cost" @enderror>
                     @error('cost')<div class="invalid-feedback d-block" id="error-cost">{{$message}}</div>@enderror
                 </div>
                 <div class="form-group mb-3">
@@ -66,14 +65,13 @@
                 </button>
                 
             </form>
-                
-                <form action="{{route('cds.delete', ['cd'=>$cd->cd_id])}}" method="post">
-                    @csrf
-                    @method('DELETE')
-                    <button href="" class="btn btn-outline-danger mr-2 float-right">
-                        Detele CD <i class="bi bi-x-octagon ml-2"></i>
-                    </button>
-                </form>
+            <form action="{{route('cds.delete', ['cd'=>$cd->cd_id])}}" method="post">
+                @csrf
+                @method('DELETE')
+                <button class="btn btn-outline-danger mr-2 float-right">
+                    Detele CD <i class="bi bi-x-octagon ml-2"></i>
+                </button>
+            </form>
         </div>
     </div>
 </div>
