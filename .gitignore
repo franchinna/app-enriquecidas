@@ -1,0 +1,8 @@
+parcial-02.zip
+Cinnante-Franco.rar
+Cinnante-Franco.zip
+
+#dependencias 
+node_modules*
+.idea
+.DS_Store*
