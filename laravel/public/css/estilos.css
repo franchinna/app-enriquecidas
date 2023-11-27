@@ -1,7 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Ubuntu&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Inter&family=Josefin+Sans:wght@500&display=swap');
 
 * {
-    font-family: "Ubuntu", sans-serif;
+    /*font-family: "Ubuntu", sans-serif;*/
+    box-sizing: border-box;
 }
 
 html, body {
@@ -16,34 +18,37 @@ html, body {
     grid-template-rows: auto 1fr auto;
     grid-template-columns: 100%;
   }
-
+/*
 body {
-    background: #fceabb; /* fallback for old browsers */
-    background: -webkit-linear-gradient(
-        to right,
-        #f8b500,
-        #fceabb
-    ); /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(
-        to right,
-        #f8b500,
-        #fceabb
-    ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-}
+    background: -webkit-linear-gradient( to right, #f8b500, #fceabb);
+    background: linear-gradient( to right,#f8b500, #fceabb);
+} */
+
 
 h1,
 h2,
 h3,
 h4,
 h5,
-h6 {
-    font-family: "Montserrat", sans-serif;
+h6, .card-text {
+    /* font-family: "Montserrat", sans-serif; */
+    font-family: 'Josefin Sans', sans-serif;
     color: #343a40;
+}
+.p{
+    font-family: 'Inter', sans-serif;
+}
+
+.text-primary{
+    color: #5e5eff!important;
+}
+
+a.text-primary:hover{
+    color: #7070ff!important;
 }
 
 .banner{
     height: 300px; 
-    background-color: orange;
     background-image: url("../imgs/banner.png");
     background-repeat: no-repeat;
     background-position: center;
@@ -51,17 +56,50 @@ h6 {
 }
 
 .banner h1{
-    color: #fff;
+    color: #7070ff;
+}
+
+.subtitle{
+    color: white;
+}
+
+.f-14{
+    font-size: 0.875rem;
+}
+
+.gap-8{
+    gap: 8px;
 }
 
 .o-dkp{
     display: none;
 }
 
+.card a{
+    text-decoration: none;
+}
+
 .card-title{
-    font-size:1.1em;
+    font-size:1.3em;
     font-weight: 200;
-    height: 45px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.card-body{
+    color: #343a40;
+}
+
+.card-text{
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #7070ff;
+}
+
+.card-text .small, .cost, .cost .small{
+    font-family: 'Josefin Sans', sans-serif;
+    color: #7070ff;
 }
 
 .card-footer{
@@ -88,13 +126,34 @@ h6 {
     border-color: #FF8800;
 }
 
-a{
-    color: #FF8800;
-}
-a:hover{
-    text-decoration: none;
-    color: #CC6E00;
-}
+.btn-warning {
+    color: white;
+    background-color: #5e5eff;
+    border-color: #5e5eff;
+  }
+
+.btn-warning:hover {
+    color: white;
+    background-color: #7070ff;
+    border-color: #7070ff;
+  }
+
+.btn-warning.focus, .btn-warning:focus {
+    color: #212529;
+    background-color: #7b68ee;
+    border-color: #7b68ee;
+    box-shadow: 0 0 0 .2rem #7e7ef1;
+  }
+
+  .btn-warning:not(:disabled):not(.disabled).active:focus, .btn-warning:not(:disabled):not(.disabled):active:focus, .show > .btn-warning.dropdown-toggle:focus {
+    box-shadow: 0 0 0 .2rem #7e7ef1;
+  }
+
+  .btn-warning:not(:disabled):not(.disabled).active, .btn-warning:not(:disabled):not(.disabled):active, .show > .btn-warning.dropdown-toggle {
+    color: white;
+    background-color: #7b68ee;
+    border-color: #7b68ee;
+  }
 
 .add-cd {
     display: flex;
@@ -131,13 +190,8 @@ a:hover{
     margin: 1em 0em;
 }
 
-.bg-form, .view-product, .cart-empty {
-    background: white;
+ .cart-empty {
     padding: 30px;
-    border-radius: 10px;
-    -webkit-box-shadow: 1px 34px 77px 0px rgba(255,136,0,1);
-    -moz-box-shadow: 1px 34px 77px 0px rgba(255,136,0,1);
-    box-shadow: 1px 34px 77px 0px rgba(255,136,0,1);
 }
 
 .form-control:focus {
@@ -147,7 +201,7 @@ a:hover{
 
 .view-product .cost{
     font-size: 2em;
-    color: #FF8800;
+    color: #7070ff;
     font-weight: bold;
     margin: .4em 0;
 }
@@ -170,9 +224,6 @@ a:hover{
 .footer p {
     margin-bottom: 0;
 }
-
-
-
 
 @media (min-width: 992px) {
     .o-dkp {

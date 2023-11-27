@@ -12,7 +12,7 @@
         <div class="container-fluid py-5 my-5">
             <div class="container py-4">
                 <div class="row justify-content-center">
-                    <div class="col-6 text-center cart-empty h-100">
+                    <div class="col-6 text-center cart-empty h-100 rounded border">
                         <h1 class="m-4">Your cart is empty</h1>
                         <p>Let's change that - use the app to discover </br> thousand of great deals</p>
                         <a href="{{ url('/') }}" class="btn btn-warning">Return to shop</a>

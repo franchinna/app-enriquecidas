@@ -13,13 +13,13 @@
         <div class="row justify-content-center">
             <div @guest class="col-md-12" @endguest @auth class="col-md-9" @endauth>
                 <h1>Discographies List</h1>
-                <p>Discographies</p>
+                <p>Explore our vast collection of CDs on our platform</p>
             </div>
             @auth
                 @if ($userRol < 3)
                     <div class="col-md-3 text-center add-cd my-mb-0 my-mb-0 my-2">
                         <a class="btn btn-light" href="{{ url('/cds/new') }}" role="button">
-                            Add a new CD to the list <i class="bi bi-plus-square ml-2"></i>
+                            <i class="bi bi-plus-square mr-2"></i> Add CD
                         </a>
                     </div>
                 @endif
@@ -28,14 +28,14 @@
                 <div class="col-md-10 mb-3">
                     <div class="card card-body">
                         <div
-                            class="media align-items-center align-items-lg-start text-center text-lg-left flex-column flex-lg-row">
+                            class="media align-items-center text-center text-lg-left flex-column flex-lg-row">
                             <div class="mr-2 mb-3 mb-lg-0">
                                 <img src="<?= url('imgs/image.svg') ?>" width="150" height="150" alt="Album cover {{ $cd->artist->name }} - {{$cd->title}}">
                                 </div>
 
                                 <div class="media-body">
                                     <h2 class="media-title font-weight-semibold">
-                                        <a href="{{ route('cds.view', ['cd' => $cd->cd_id]) }}">{{ $cd->title }}</a>
+                                        <a class="text-primary" href="{{ route('cds.view', ['cd' => $cd->cd_id]) }}">{{ $cd->title }}</a>
                                     </h2>
                                     <ul class="list-inline list-inline-dotted mb-3 text-muted">
                                         <li class="list-inline-item">{{ $cd->artist->name }}</li>
@@ -81,7 +81,7 @@
                                                         <form action="{{route('cds.delete', ['cd'=>$cd->cd_id])}}" method="post">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button class="btn btn-danger">
+                                                            <button class="btn btn-outline-danger">
                                                                 <i class="bi bi-x-octagon"></i>
                                                             </button>
                                                         </form>

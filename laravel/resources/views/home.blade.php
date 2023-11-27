@@ -8,17 +8,18 @@
 @section('title', 'Home - Cidi Market')
 
 @section('main')
-<div class="container-fluid banner">
+<section class="container-fluid banner">
     <div class="container">
-        <div class="row align-items-center">
-            <div class="col">
-                <h1 class="py-5">Welcome to Cidi Market</h1>
+        <div class="row align-items-center justify-content-between">
+            <div class="col col-lg-6">
+                <h1 class="mt-5">Bring Your Music Collection to Life: Buy CDs from All Your Favorite Artists</h1>
+                <p class="subtitle">Get Your Groove On: Browse <b>Our Extensive Collection</b> of CDs from Popular Artists and Bands</p>
             </div>
         </div>
     </div>
-</div>
+</section>
 
-<div class="container-fluid bg-light py-5">
+<section class="container-fluid bg-light py-5">
     <div class="container">
         <div class="row">
             <div class="card-group">
@@ -30,10 +31,11 @@
                                     <img src="<?= url('imgs/image-square.png')?>" alt="" class="img-fluid p-2">
                                     <div class="card-body">
                                         <h2 class="card-title">{{$cd->title}}</h2>
-                                        <p class="card-text font-weight-bold">USD {{$cd->cost / 100 }}</p>
+                                        <p class="p-0 m-0 f-14">{{$cd->artist->name}}</p>
                                     </div>
                                 </a>
-                                <div class="card-footer">
+                                <div class="card-footer d-flex justify-content-between align-items-center">
+                                    <p class="card-text m-0 p-0"><span class="small">usd</span> {{$cd->cost / 100 }}</p>
                                     <a href="{{ url('add-to-cart/'. $cd->cd_id) }}" class="btn btn btn-warning">
                                         <i class="bi bi-basket"></i>
                                     </a>
@@ -45,7 +47,7 @@
             </div>
         </div>
     </div>
-</div>
+</section>
 
 
 <!-- ++ Modal Under Construction ++ -->
