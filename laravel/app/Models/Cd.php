@@ -48,6 +48,7 @@ class Cd extends Model
       'cost',
       'release_date',
       'artist_id',
+      'imagen',
    ];
 
    /** @var string[] Reglas de validacion */

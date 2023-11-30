@@ -1,11 +1,12 @@
 <!doctype html>
-<html lang="es">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title', 'Parcial 01 - App Enriquecidas')</title>
+    <link rel="shortcut icon" href="<?= url('icons/ico.ico') ?>">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="<?= url('css/bootstrap.min.css'); ?>">
     <link rel="stylesheet" href="<?= url('css/estilos.css'); ?>">
@@ -13,8 +14,8 @@
 
 <body>
 
-    @if(Session::has('message'))
-    <div class="alert alert-{{ Session::get('message_type') ?? 'success' }}">{{ Session::get('message') }}</div>
+    @if (Session::has('message'))
+    <div class="alert alert-{{ Session::get('message-type', 'success') }} m-0">{{ Session::get('message') }}</div>
     @endif
 
     <header>
@@ -24,15 +25,15 @@
     </header>    
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-12 text-center m-3">
-                <img src="" alt="" class="img-fluid">
+            <div class="col-12 text-center">
+                <img src="<?= url('imgs/login.svg'); ?>" alt="Login img" class="img-fluid img-login">
                 <h1>Sign-In</h1>
             </div>
 
-            <div class="bg-form">
+            <div class="bg-form rounded border py-3 px-4">
                 <form action="{{ route('auth.login') }}" method="post">
                     @csrf
-                    <div class="form-group mb-3">
+                    <div class="form-group mb-2">
                         <label for="email" class="form-label">Email</label>
                         <input type="email" name="email" id="email" class="form-control @error('email') is-invalid @enderror" value="{{old('email','')}}" @error('email') aria-describedby="error-email" @enderror>
 
@@ -44,7 +45,7 @@
                             We'll never share your email with anyone else.
                         </small>
                     </div>
-                    <div class="form-group mb-3">
+                    <div class="form-group mb-4">
                         <label for="password" class="form-label">Password</label>
                         <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror" value="{{old('password','')}}" @error('password') aria-describedby="error-password" @enderror>
 
@@ -53,7 +54,7 @@
                         @enderror
                     </div>
                     <button type="submit" class="btn btn-warning text-white btn-block">Log in</button>
-                    <small><a href="#">Forgot your password?</a></small>
+                    <small><a href="<?= url('/forget-my-password'); ?>">Forgot your password?</a> or <a href="<?= url('/register'); ?>">I want to register</a></small>
                 </form>
             </div>
         </div>

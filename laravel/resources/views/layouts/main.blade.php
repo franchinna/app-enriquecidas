@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>@yield('title', 'Parcial 01 - App Enriquecidas')</title>
+    <title>@yield('title', 'Final - App Enriquecidas')</title>
     <link rel="shortcut icon" href="<?= url('icons/ico.ico') ?>">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="<?= url('css/bootstrap.min.css') ?>">
@@ -17,7 +17,7 @@
     <header class="">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">Cidi Market</a>
+                <a class="navbar-brand" href="<?= url('/'); ?>" >Cidi Market</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Abrir/cerrar menú de navegación">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -37,6 +37,18 @@
                             </li>
                         @endguest
                         @auth()
+                            @if ($userRol = 1)
+                            <li class="nav-item">
+                                <a class="nav-link <?= url()->current() == url('/admin') ? 'active' : '' ?>" href="<?= url('/admin') ?>">Panel admin</a>
+                            </li>
+                            @endif
+                        @endauth
+                        @auth()
+                            <li class="nav-item">
+                                <a class="nav-link <?= url()->current() == url('/profile') ? 'active' : '' ?>" href="<?= url('/profile') ?>">Profile</a>
+                            </li>
+                        @endauth
+                        @auth()
                             <li class="nav-item">
                                 <a class="nav-link <?= url()->current() == url('/logout') ? 'active' : '' ?>" href="<?= url('/logout') ?>">Logout <i class="ml-2 bi bi-box-arrow-right"></i></a>
                             </li>
@@ -55,7 +67,7 @@
 
                     <div class="ml-2">
                         <a href="<?= url('/cart') ?>" class="btn btn-outline-light">
-                            <i class="bi bi-basket"></i>
+                            View cart
                         </a>
                     </div>
 
@@ -64,7 +76,7 @@
         </nav>
 
         @if (Session::has('message'))
-        <div class="alert alert-{{ Session::get('message_type') ?? 'success' }} m-0">{{ Session::get('message') }}</div>
+        <div class="alert alert-{{ Session::get('message-type', 'success') }} m-0">{{ Session::get('message') }}</div>
         @endif
 
     </header>

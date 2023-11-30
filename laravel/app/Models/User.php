@@ -51,13 +51,13 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'rol',
         'email',
         'password',
     ];
 
     /** @var string[] Reglas de validacion */
     public static $rules = [
-        
         'email' => 'required',
         'password' => 'required',
     ];

@@ -18,6 +18,10 @@
             </div>
 
             <div class="col-md-5 img-centered">
+                @if(Storage::disk('public')->exists($cd->imagen))
+                    {{-- Con el helper "asset" podemos imprimir un archivo de public. Para que salga de storage, simplemente le prefijamos la ruta 'storage/'. --}}
+                    <img src="{{ asset('storage/app/public/' . $cd->imagen) }}" alt="Album cover {{ $cd->title }}">
+                @endif
                 <img src="<?= url('imgs/image.svg') ?>" alt="{{ $cd->title }} album cover" class="img-fluid">
             </div>
 
@@ -53,7 +57,7 @@
                         @endif
                     @endauth
                     <a href="{{ url('add-to-cart/' . $cd->cd_id) }}" class="btn btn-warning">
-                        <i class="bi bi-bag-plus ml-2"></i> Add to cart
+                        Buy CD
                     </a>
                 </div>
             </div>

@@ -15,7 +15,7 @@
         </div>
 
         <div class="col-md-6 p-4">
-            <form action="{{ route('cds.create') }}" method="post">
+            <form action="{{ route('cds.create') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group mb-3">
                     <label for="title" class="form-label">Title</label>
@@ -31,7 +31,7 @@
                 <div class="form-group mb-3">
                     <label for="artist" class="form-label">Artists</label>
                     <select name="artist_id" id="artist" class="form-control @error('artist_id') is-invalid @enderror"  @error('artist_id') aria-describedby="error-artists" @enderror >
-                        <option value="" selected>Select An Artists</option>
+                        <option value="" selected>Select an artists</option>
                         @foreach($artists as $artist)
                             <option value="{{$artist->artist_id}}" @if(old('artist_id') == $artist->artist_id) selected @endif>{{$artist->name}}</option>
                         @endforeach
@@ -42,6 +42,11 @@
                     <label for="duration" class="form-label">Duration (min) </label>
                     <input type="text" name="duration" id="duration" class="form-control @error('duration') is-invalid @enderror" @error('duration') aria-describedby="durationHelp" @enderror value="{{old('duration','')}}" @error('duration') aria-describedby="error-duration" @enderror>
                     @error('duration')<div class="invalid-feedback d-block" id="error-duration">{{$message}}</div>@enderror
+                </div>
+                <div class="form-group mb-3">
+                    <label for="imagen" class="form-label">CD Cover</label>
+                    <input type="file" name="imagen" id="imagen" class="form-control @error('imagen') is-invalid @enderror" @error('imagen') aria-describedby="imagenHelp" @enderror value="{{old('imagen','')}}" @error('imagen') aria-describedby="error-imagen" @enderror>
+                    @error('imagen')<div class="invalid-feedback d-block" id="error-imagen">{{$message}}</div>@enderror
                 </div>
                 <div class="form-group mb-3">
                     <label for="cost" class="form-label">Cost in cents (USD)</label>

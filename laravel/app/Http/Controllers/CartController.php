@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Cd;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -16,7 +17,19 @@ class CartController extends Controller
 
         //dd($cart);
 
-        return view('cds.cart', compact('cart'));
+        return view('cart.index', compact('cart'));
+    }
+
+
+    public function view(Cart $cart){
+
+        $userRol = 0;
+
+        if(Auth::user() != null){
+            $userRol = Auth::user()->rol;
+        }
+
+        return view('cart.view', compact('cart', 'userRol'));
     }
 
     public function addToCart($id)

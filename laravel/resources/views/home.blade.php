@@ -25,10 +25,16 @@
             <div class="card-group">
                 <div class="row">
                     @foreach($cds as $cd)
-                        <div class="col-sm-4 col-lg-3 mb-4">
+                        <article class="col-sm-4 col-lg-3 mb-4">
                             <div class="card">
                                 <a href="{{route('cds.view', ['cd' => $cd->cd_id])}}">
+                                    @if(Storage::disk('public')->exists($cd->imagen))
+                                    {{-- Con el helper "asset" podemos imprimir un archivo de public. Para que salga de storage, simplemente le prefijamos la ruta 'storage/'. --}}
+                                    <img src="{{ URL::asset('storage/app/public/' . $cd->imagen) }}" alt="Album cover {{ $cd->title }}" class="img-fluid p-2">
+                                    @else
                                     <img src="<?= url('imgs/image-square.png')?>" alt="" class="img-fluid p-2">
+                                    @endif
+                                    
                                     <div class="card-body">
                                         <h2 class="card-title">{{$cd->title}}</h2>
                                         <p class="p-0 m-0 f-14">{{$cd->artist->name}}</p>
@@ -37,11 +43,11 @@
                                 <div class="card-footer d-flex justify-content-between align-items-center">
                                     <p class="card-text m-0 p-0"><span class="small">usd</span> {{$cd->cost / 100 }}</p>
                                     <a href="{{ url('add-to-cart/'. $cd->cd_id) }}" class="btn btn btn-warning">
-                                        <i class="bi bi-basket"></i>
+                                        Buy
                                     </a>
                                 </div>
                             </div>
-                        </div>
+                        </article>
                     @endforeach
                 </div>
             </div>

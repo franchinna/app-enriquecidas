@@ -1,9 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Ubuntu&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Inter&family=Josefin+Sans:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Saira:wght@300;400;500;600;700&display=swap');
 
 * {
     /*font-family: "Ubuntu", sans-serif;*/
     box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
 }
 
 html, body {
@@ -18,23 +18,18 @@ html, body {
     grid-template-rows: auto 1fr auto;
     grid-template-columns: 100%;
   }
-/*
-body {
-    background: -webkit-linear-gradient( to right, #f8b500, #fceabb);
-    background: linear-gradient( to right,#f8b500, #fceabb);
-} */
-
 
 h1,
 h2,
 h3,
 h4,
 h5,
-h6, .card-text {
+h6, .card-text, h2 a {
     /* font-family: "Montserrat", sans-serif; */
-    font-family: 'Josefin Sans', sans-serif;
+    font-family: 'Saira', sans-serif;
     color: #343a40;
 }
+
 .p{
     font-family: 'Inter', sans-serif;
 }
@@ -81,7 +76,6 @@ a.text-primary:hover{
 
 .card-title{
     font-size:1.3em;
-    font-weight: 200;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -100,6 +94,11 @@ a.text-primary:hover{
 .card-text .small, .cost, .cost .small{
     font-family: 'Josefin Sans', sans-serif;
     color: #7070ff;
+    text-transform: uppercase ;
+}
+
+.price{
+    text-transform: uppercase ;
 }
 
 .card-footer{
@@ -112,18 +111,18 @@ a.text-primary:hover{
 }
 
 .page-link{
-    color: #FF8800;
+    color: #5e5eff;
 }
 
 .page-link:hover{
-    color: #CC6E00;
+    color: #7e7ef1;;
 }
 
 .page-item.active .page-link {
     z-index: 3;
     color: #fff;
-    background-color: #FF8800;
-    border-color: #FF8800;
+    background-color: #5e5eff;
+    border-color: #5e5eff;
 }
 
 .btn-warning {
@@ -206,12 +205,21 @@ a.text-primary:hover{
     margin: .4em 0;
 }
 
+.img-login{
+    max-width: 120px;
+    margin-bottom: 1rem;
+}
+
 .img-centered{
     align-self: center;
 }
 
 .td-center{
     text-align: center;
+}
+
+.bg-form {
+    max-width: 800px;
 }
 
 .footer {
@@ -233,5 +241,5 @@ a.text-primary:hover{
     .navbar-collapse{
         justify-content: right;
     }
-  }
+}
   

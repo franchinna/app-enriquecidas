@@ -24,8 +24,8 @@
         <div class="container-fluid py-2 my-2">
             <div class="container py-4">
                 <div class="row justify-content-center">
-                    <div class="col-12 col-md-8 bg-light p-5 rounded">
-                        <h1 class="pb-4">Shopping cart <i class="bi bi-basket text-warning"></i></h1>
+                    <div class="col-12 col-md-8 bg-light p-5 rounded border">
+                        <h1 class="pb-4">Shopping cart</h1>
                         <table class="table table-striped table-hover">
                             <thead>
                                 <tr>
@@ -69,7 +69,7 @@
         </div>
 
         <!-- Modal -->
-        <div class="modal fade" id="cartConfirm" tabindex="-1" aria-labelledby="cartConfirmLabel" aria-hidden="true">
+        <div class="modal fade" id="cartConfirm" tabindex="-1" aria-labelledby="cartConfirm" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-dialog">
                     <div class="modal-content">

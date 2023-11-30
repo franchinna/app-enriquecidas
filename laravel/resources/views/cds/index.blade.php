@@ -16,7 +16,7 @@
                 <p>Explore our vast collection of CDs on our platform</p>
             </div>
             @auth
-                @if ($userRol < 3)
+                @if ($userRol = 1)
                     <div class="col-md-3 text-center add-cd my-mb-0 my-mb-0 my-2">
                         <a class="btn btn-light" href="{{ url('/cds/new') }}" role="button">
                             <i class="bi bi-plus-square mr-2"></i> Add CD
@@ -24,12 +24,17 @@
                     </div>
                 @endif
             @endauth
+
             @foreach ($cds as $cd)
-                <div class="col-md-10 mb-3">
+                <article class="col-md-10 mb-3">
                     <div class="card card-body">
                         <div
                             class="media align-items-center text-center text-lg-left flex-column flex-lg-row">
                             <div class="mr-2 mb-3 mb-lg-0">
+                                @if(Storage::disk('public')->exists($cd->imagen))
+                                    {{-- Con el helper "asset" podemos imprimir un archivo de public. Para que salga de storage, simplemente le prefijamos la ruta 'storage/'. --}}
+                                    <img src="{{ asset('storage/app/public/' . $cd->imagen) }}" alt="Album cover {{ $cd->title }}">
+                                @endif
                                 <img src="<?= url('imgs/image.svg') ?>" width="150" height="150" alt="Album cover {{ $cd->artist->name }} - {{$cd->title}}">
                                 </div>
 
@@ -67,7 +72,7 @@
                                     <ul class="d-grid gap-2 list-inline mt-2">
                                         <li class="list-inline-item">
                                                 <a href="{{ url('add-to-cart/' . $cd->cd_id) }}" class="btn btn-warning">
-                                                    <i class="bi bi-basket"></i>
+                                                    Buy
                                                 </a>
                                         </li>
                                         @auth
@@ -98,7 +103,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </article>
                     @endforeach
 
                     <div class="container">

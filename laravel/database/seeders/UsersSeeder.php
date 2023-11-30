@@ -30,12 +30,12 @@ class UsersSeeder extends Seeder
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
 
-            //user admin puede crear cds. 
+            //Usuario normal, solo puede comprar. 
             [
                 'user_id' => 2,
                 'email' => 'test@test.com',
                 'name' => 'Test',
-                'rol' => 2,
+                'rol' => 0,
                 'password' => Hash::make('123456'),
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
@@ -46,7 +46,7 @@ class UsersSeeder extends Seeder
                 'user_id' => 3,
                 'email' => 'terricola@terricola.com',
                 'name' => 'terricola',
-                'rol' => 3,
+                'rol' => 0,
                 'password' => Hash::make('123456'),
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),

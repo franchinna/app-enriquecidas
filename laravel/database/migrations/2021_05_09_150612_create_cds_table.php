@@ -15,17 +15,9 @@ class CreateCdsTable extends Migration
     {
         Schema::create('cds', function (Blueprint $table) {
 
-            //cd_id
-            //Title
-            //Description
-            //Duration
-            //Cost
-            //release_date
-            //Artist (FK)
-            // El campo Artist requiere que creemos una tabla de Artist, y lo podemos agregar después.
-
             $table-> id('cd_id');
             $table-> string('title', 100);
+            //$table-> string('imagen', 100);
             $table-> text('description');
             $table-> unsignedSmallInteger('duration');
             $table-> unsignedBigInteger('cost')->nullable();

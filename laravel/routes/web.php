@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CdsController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\ShippingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,15 +21,19 @@ use App\Http\Controllers\CartController;
 Route::get('/', [HomeController::class, 'index'])
     ->name('home');
 
-Route::get('/login', [AuthController::class, 'loginForm'])
-    ->name('auth.login-form');
-
 Route::post('/login', [AuthController::class, 'login'])
     ->name('auth.login');
+
+Route::get('/login', [AuthController::class, 'loginForm'])
+    ->name('auth.login-form');
 
 Route::get('/logout', [AuthController::class, 'logout'])
     ->name('auth.logout');
 
+Route::prefix('/register')->group(function() {
+    Route::get('/', [AuthController::class, 'registerForm'])->name('auth.register-form');
+    Route::post('/register', [AuthController::class, 'register'])->name('auth.register');
+});
 
 Route::prefix('/cds')->group(function() {
     Route::get('/', [CdsController::class, 'index'])
@@ -57,8 +62,10 @@ Route::prefix('/cds')->group(function() {
 
 Route::middleware(['auth'])->group(function() {
     Route::get('order.confirm', [CartController::class, 'confirmOrder' ])
-    ->name('cart.confirmOrder');   
+    ->name('cart.confirmOrder');
 
+    Route::get('/admin', [ShippingController::class, 'index'])
+       ->name('admin.index');
 });
 
 Route::prefix('/cart')->group(function() {
@@ -66,9 +73,8 @@ Route::prefix('/cart')->group(function() {
         ->name('cart.index');
 });
 
-Route::get('add-to-cart/{id}', [CartController::class, 'addToCart' ])
+Route::get('/add-to-cart/{id}', [CartController::class, 'addToCart' ])
         ->name('cart.addToCart');
 
-Route::get('remove-to-cart/{id}', [CartController::class, 'delete' ])
+Route::get('/remove-to-cart/{id}', [CartController::class, 'delete' ])
         ->name('cart.delete');
-

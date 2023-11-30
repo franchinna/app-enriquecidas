@@ -10,6 +10,11 @@ class AuthController extends Controller
     public function loginForm()
     {
         return view('auth.login');
+    }    
+    
+    public function registerForm()
+    {
+        return view('auth.register');
     }
 
     public function login(Request $request){
@@ -18,19 +23,44 @@ class AuthController extends Controller
         
         $credentials = $request->only(['password', 'email']);
 
+        //dd($request);
+
         if(!auth()->attempt($credentials)) {
             return redirect()
                 ->route('auth.login-form')
                 ->withInput()
-                ->with('message', 'The credentials do not match our registry')
-                ->with('message_type', 'danger');
+                ->with([
+                    'message' => "The credentials do not match our registry",
+                    'message-type' => 'danger',
+                ]);
         }
 
         return redirect()
             ->route('home')
-            ->with('message', 'Welcome!')
-            ->with('message_type', 'success');
+            ->with([
+                'message' => "Welcome!",
+                'message-type' => 'success',
+            ]);
 
+    }
+
+    public function register(Request $request){
+
+
+        $request->validate(User::$rules);
+        
+        $request->merge(['rol' => '0']);
+
+        //dd($request);
+
+        $user = User::create($request->only(['name','email','rol','password']));
+
+        return redirect()
+        ->route('auth.login')
+        ->with([
+            'message' => "User created successful",
+            'message-type' => 'success',
+        ]);
     }
     
     public function logout()
@@ -39,6 +69,9 @@ class AuthController extends Controller
 
         return redirect()
             ->route('home')
-            ->with('message', 'See you baby 🏴‍☠️👋🏻');
+            ->with([
+                'message' => 'See you baby 🏴‍☠️👋🏻',
+                'message-type' => 'success',
+            ]);
     }
 }
