@@ -5,33 +5,34 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * App\Models\Cart
- *
- * @property int $item_id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|Cart newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Cart newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Cart query()
- * @method static \Illuminate\Database\Eloquent\Builder|Cart whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Cart whereItemId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Cart whereUpdatedAt($value)
- * @mixin \Eloquent
- */
 class Cart extends Model
 {
-    //use HasFactory;
-    
-    protected $table = 'cart'; 
-    
+    //use HasFactory;    
+    protected $table = 'carts';
+    protected $primaryKey = 'id';
+
+
     protected $fillable = [
-        'cd_id',
-        'quantity',
-     ];
+        'user_id',
+        'status',
+        'id'
+    ];
 
-    public function cd(){
+    // Relación con el modelo User
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    
+    // Relación con el modelo CartItem
+    public function cartItems()
+    {
+        return $this->hasMany(CartItem::class);
+    }
 
+    // Relación con el modelo Cd
+    public function cd()
+    {
         return $this->belongsTo(Cd::class, 'cd_id', 'cd_id');
-     }
+    }
 }

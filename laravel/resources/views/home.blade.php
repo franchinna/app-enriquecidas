@@ -28,11 +28,12 @@
                         <article class="col-sm-4 col-lg-3 mb-4">
                             <div class="card">
                                 <a href="{{route('cds.view', ['cd' => $cd->cd_id])}}">
+                                    
                                     @if(Storage::disk('public')->exists($cd->imagen))
                                     {{-- Con el helper "asset" podemos imprimir un archivo de public. Para que salga de storage, simplemente le prefijamos la ruta 'storage/'. --}}
-                                    <img src="{{ URL::asset('storage/app/public/' . $cd->imagen) }}" alt="Album cover {{ $cd->title }}" class="img-fluid p-2">
+                                    <img src="{{ asset('storage/' . $cd->imagen) }}" alt="Album cover {{ $cd->title }}" class="img-fluid p-2  img-home-galery ">
                                     @else
-                                    <img src="<?= url('imgs/image-square.png')?>" alt="" class="img-fluid p-2">
+                                    <img src="<?= url('imgs/image-square.png')?>" alt="Album cover {{ $cd->title }}" class="img-fluid p-2 img-home-galery ">
                                     @endif
                                     
                                     <div class="card-body">

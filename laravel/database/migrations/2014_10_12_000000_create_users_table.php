@@ -6,16 +6,10 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateUsersTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            
-            $table->smallIncrements('user_id');
+            $table->id();
             $table->string('name');
             $table->string('email')->unique();
             $table->unsignedSmallInteger('rol');
@@ -24,14 +18,10 @@ class CreateUsersTable extends Migration
             $table->timestamps();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
+    
     public function down()
     {
         Schema::dropIfExists('users');
     }
 }
+

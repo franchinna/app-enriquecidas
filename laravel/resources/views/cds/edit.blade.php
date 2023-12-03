@@ -15,7 +15,13 @@
         <div class="col-md-6 align-self-center p-4">
             <h1>Update CD</h1>
             <p>Please, complete the form to update the album to the sales list</p>
-            <img src="<?= url('imgs/add_post.svg'); ?>" alt="Image edit form" class="img-fluid d-none d-md-block">
+            @if (Storage::disk('public')->exists($cd->imagen))
+            <img src="{{ asset('storage/' . $cd->imagen) }}"
+                alt="Album cover {{ $cd->title }}" class="img-fluid  img-home-galery  d-none d-md-block">
+        @else
+            <img src="<?= url('imgs/image.svg') ?>"
+                alt="Album cover {{ $cd->artist->name }} - {{ $cd->title }}" class="img-fluid  img-home-galery  d-none d-md-block">
+        @endif
         </div>
 
         <div class="col-md-6 p-4">
@@ -33,6 +39,16 @@
                     <label for="description" class="form-label">Description</label>
                     <textarea name="description" id="description" class="form-control  @error('description') is-invalid @enderror" @error('description') aria-describedby="error-description"@enderror>{{old('description',$cd->description)}}</textarea>
                     @error('description')<div class="invalid-feedback d-block" id="error-description">{{$message}}</div>@enderror
+                </div>
+                <div class="form-group mb-3">
+                    <label for="artist_id" class="form-label">Artists</label>
+                    <select name="artist_id" id="artist_id" class="form-control @error('artist_id') is-invalid @enderror"  @error('artist_id') aria-describedby="error-artists" @enderror >
+                        <option value="{{$cdArtist->artist_id}}">{{$cdArtist->name}}</option>
+                        @foreach($artists as $artist)
+                            <option value="{{$artist->artist_id}}" @if(old('artist_id') == $artist->artist_id) selected @endif>{{$artist->name}}</option>
+                        @endforeach
+                    </select>
+                    @error('artist_id')<div class="invalid-feedback d-block" id="error-artists">{{$message}}</div>@enderror
                 </div>
                 <div class="form-group mb-3">
                     <label for="duration" class="form-label">Duration (min) </label>

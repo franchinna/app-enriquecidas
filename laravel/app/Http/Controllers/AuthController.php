@@ -4,28 +4,32 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+    public function profile()
+    {
+        return view('auth.profile');
+    }
     public function loginForm()
     {
         return view('auth.login');
-    }    
-    
+    }
+
     public function registerForm()
     {
         return view('auth.register');
     }
 
-    public function login(Request $request){
-        
+    public function login(Request $request)
+    {
+
         $request->validate(User::$rules);
-        
+
         $credentials = $request->only(['password', 'email']);
 
-        //dd($request);
-
-        if(!auth()->attempt($credentials)) {
+        if (!auth()->attempt($credentials)) {
             return redirect()
                 ->route('auth.login-form')
                 ->withInput()
@@ -38,31 +42,31 @@ class AuthController extends Controller
         return redirect()
             ->route('home')
             ->with([
-                'message' => "Welcome!",
+                'message' => "Welcome",
                 'message-type' => 'success',
             ]);
-
     }
 
-    public function register(Request $request){
-
+    public function register(Request $request)
+    {
 
         $request->validate(User::$rules);
-        
-        $request->merge(['rol' => '0']);
 
-        //dd($request);
+        $request->merge([
+            'rol' => '0',
+            'password' => Hash::make($request->password),
+        ]);
 
-        $user = User::create($request->only(['name','email','rol','password']));
+        $user = User::create($request->only(['name', 'email', 'rol', 'password']));
 
         return redirect()
-        ->route('auth.login')
-        ->with([
-            'message' => "User created successful",
-            'message-type' => 'success',
-        ]);
+            ->route('auth.login')
+            ->with([
+                'message' => "User created successful",
+                'message-type' => 'success',
+            ]);
     }
-    
+
     public function logout()
     {
         auth()->logout();

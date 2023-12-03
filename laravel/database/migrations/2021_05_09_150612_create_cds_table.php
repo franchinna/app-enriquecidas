@@ -14,16 +14,13 @@ class CreateCdsTable extends Migration
     public function up()
     {
         Schema::create('cds', function (Blueprint $table) {
-
-            $table-> id('cd_id');
-            $table-> string('title', 100);
-            //$table-> string('imagen', 100);
-            $table-> text('description');
-            $table-> unsignedSmallInteger('duration');
-            $table-> unsignedBigInteger('cost')->nullable();
-            $table-> date('release_date')->format('Y-m-d')->nullable();
-
-            $table-> timestamps();
+            $table->id('cd_id');
+            $table->string('title', 100);
+            $table->text('description');
+            $table->unsignedSmallInteger('duration');
+            $table->unsignedBigInteger('cost')->nullable();
+            $table->date('release_date')->nullable();
+            $table->timestamps();
         });
     }
 

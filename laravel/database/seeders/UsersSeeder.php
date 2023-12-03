@@ -21,7 +21,7 @@ class UsersSeeder extends Seeder
 
             //Super user. Puede crear, actualizar y borrar cds. Comprar. 
             [
-                'user_id' => 1,
+                'id' => 1,
                 'email' => 'admin@admin.com',
                 'name' => 'Admin',
                 'rol' => 1,
@@ -32,7 +32,7 @@ class UsersSeeder extends Seeder
 
             //Usuario normal, solo puede comprar. 
             [
-                'user_id' => 2,
+                'id' => 2,
                 'email' => 'test@test.com',
                 'name' => 'Test',
                 'rol' => 0,
@@ -43,7 +43,7 @@ class UsersSeeder extends Seeder
             
             //Usuario normal, solo puede comprar. 
             [
-                'user_id' => 3,
+                'id' => 3,
                 'email' => 'terricola@terricola.com',
                 'name' => 'terricola',
                 'rol' => 0,

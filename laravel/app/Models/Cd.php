@@ -57,6 +57,7 @@ class Cd extends Model
       'description' => 'required|min:10',
       'duration' => 'required|numeric',
       'cost' => 'required|numeric',
+      'artist_id' => 'required',
       'release_date' => 'required|date',
    ];
 

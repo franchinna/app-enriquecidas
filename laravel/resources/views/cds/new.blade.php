@@ -29,8 +29,8 @@
                     @error('description')<div class="invalid-feedback d-block" id="error-description">{{$message}}</div>@enderror
                 </div>
                 <div class="form-group mb-3">
-                    <label for="artist" class="form-label">Artists</label>
-                    <select name="artist_id" id="artist" class="form-control @error('artist_id') is-invalid @enderror"  @error('artist_id') aria-describedby="error-artists" @enderror >
+                    <label for="artist_id" class="form-label">Artists</label>
+                    <select name="artist_id" id="artist_id" class="form-control @error('artist_id') is-invalid @enderror"  @error('artist_id') aria-describedby="error-artists" @enderror >
                         <option value="" selected>Select an artists</option>
                         @foreach($artists as $artist)
                             <option value="{{$artist->artist_id}}" @if(old('artist_id') == $artist->artist_id) selected @endif>{{$artist->name}}</option>

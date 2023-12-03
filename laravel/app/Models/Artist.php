@@ -29,10 +29,14 @@ class Artist extends Model
     protected $table = 'artists';
     protected $primaryKey = 'artist_id';
 
-
-       /** @var string[] Reglas de validacion */
-   public static $rules = [
-    'artist_id' => 'required',
- ];
-
+    protected $fillable = [
+        'name',
+        'country',
+     ];
+  
+     /** @var string[] Reglas de validacion */
+     public static $rules = [
+        'name' => 'required',
+        'country' => 'required',
+     ];
 }

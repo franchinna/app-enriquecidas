@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Models\Cart;
+use App\Models\CartItem;
 use App\Models\Cd;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -12,121 +13,150 @@ class CartController extends Controller
 {
     public function index()
     {
+        $user_id = auth()->id();
 
-        $cart = Cart::with('cd')->get();
+        $cart = Cart::where('user_id', $user_id)
+            ->where('status', 'In progress')
+            ->first();
 
-        //dd($cart);
-
-        return view('cart.index', compact('cart'));
-    }
-
-
-    public function view(Cart $cart){
-
-        $userRol = 0;
-
-        if(Auth::user() != null){
-            $userRol = Auth::user()->rol;
-        }
-
-        return view('cart.view', compact('cart', 'userRol'));
-    }
-
-    public function addToCart($id)
-    {
-        $cd = Cd::find($id);
-
-        //preguntamos si el id del CD existe en nuestra DB_DATABASE
-
-        if (!$cd) {
-
-            return redirect()
-                ->back()
-                ->with('message', 'Cd dosent exist!')
-                ->with('message_type', 'danger');
-        }
-
-        $cart = Cart::with('cd')->get();
-
-        //Si no hay carrito, se crea uno
+        $cartItems = CartItem::with('cd')
+            ->where('cart_id', optional($cart)->id)
+            ->get();
 
         if (!$cart) {
+            return view('cart.index', compact('cart'));
+        } else {
+            return view('cart.index', compact('cart', 'cartItems'));
+        }
+    }
 
-            $cart = new Cart;
-            $cart->cd_id = $cd->cd_id;
-            $cart->quantity = 1;
+    public function view(Cart $cart)
+    {
+        if (Auth::check()) {
 
+            // Buscamos el user_id en usuarios. 
+            $user_id = Auth::user()->user_id;
+            dd($user_id);
+
+            $cart = Cart::where('user_id', $user_id)
+                ->where('status', 'In progress')
+                ->first();
+
+            return view('cart.view', compact('cart',));
+        } else {
             return redirect()
-                ->back()
-                ->with('message', 'Cd has been added successfully!')
-                ->with('message_type', 'success');
+                ->route('auth.login')
+                ->with('message', 'Login to buy cds')
+                ->with('message_type', 'info');
+        }
+    }
+
+    public function addToCart($cd_id)
+    {
+        // Obtén el usuario actualmente autenticado o null si no hay usuario autenticado
+        $userId = auth()->id();
+
+        // Busca un carrito existente para el usuario actual con status 'In progress'
+        $cart = Cart::where('user_id', $userId)
+            ->where('status', 'In progress')
+            ->first();
+
+        // Si no hay un carrito en progreso, crea uno
+        if (!$cart) {
+            $cart = Cart::create([
+                'user_id' => $userId,
+                'status' => 'In progress',
+            ]);
         }
 
-        //recorremos todos los items del carrito y preguntamos si coincide con el id que tenemos.
-        // de conincidir, se suma 1 a la cantidad. 
+        // Busca si ya hay un elemento de Cd en el carrito
+        $cartItem = CartItem::where('cart_id', $cart->id)
+            ->where('cd_id', $cd_id)
+            ->first();
 
-        foreach ($cart as $item) {
-
-            if ($item->cd_id == $id) {
-
-                $item = Cart::where('cd_id', $item->cd_id)
-                    ->update(['quantity' => $item->quantity + 1]);
-
-                return redirect()
-                    ->back()
-                    ->with('message', 'Cd has been added successfully!')
-                    ->with('message_type', 'success');
-            }
+        // Si ya existe, incrementa la cantidad
+        if ($cartItem) {
+            $cartItem->increment('quantity');
+        } else {
+            // Si no existe, crea un nuevo elemento de Cd en el carrito
+            CartItem::create([
+                'cart_id' => $cart->id,
+                'cd_id' => $cd_id,
+                'quantity' => 1, // Puedes ajustar la cantidad según tus necesidades
+            ]);
         }
 
-        $cart = Cart::create([
-            'cd_id' => $id,
-            'quantity' => 1
-        ]);
-
+        // Redirige a la página del carrito
         return redirect()
             ->back()
-            ->with('message', 'Cd has been added successfully!')
-            ->with('message_type', 'success');
+            ->with([
+                'message' => 'Item added to the cart successfully.',
+                'message-type' => 'success',
+            ]);
     }
 
-    public function delete($id)
+    public function delete($cd_id)
     {
-        $cart = Cart::with('cd')->get();
+        // Obtén el usuario actualmente autenticado o null si no hay usuario autenticado
+        $user_id = auth()->id();
 
-        foreach ($cart as $item) {
-            if ($item->cd_id == $id) {
+        // Busca un carrito existente para el usuario actual con status 'In progress'
+        $cart = Cart::where('user_id', $user_id)
+            ->where('status', 'In progress')
+            ->first();
 
-                if($item->quantity == 1){
+        // Si no hay un carrito en progreso, redirige a la página del carrito
+        if (!$cart) {
+            return redirect()
+                ->route('cart.index')
+                ->with([
+                    'message' => 'The cart is empty.',
+                    'message-type' => 'info',
+                ]);
+        } else {
 
-                    $item = Cart::where('cd_id', $item->cd_id)
-                            ->delete();
+            $cartsItems = CartItem::where('cart_id', $cart->id)
+                ->get();
 
-                    return redirect()
-                        ->back()
-                        ->with('message', 'Cd has been removed successfully!')
-                        ->with('message_type', 'success');
+            $item = CartItem::where('cart_id', $cart->id)
+                ->where('cd_id', $cd_id)
+                ->first();
+            if (count($cartsItems) <= 1 && $item->quantity <= 1) {
+
+                CartItem::where('cd_id', $cd_id)
+                    ->delete();
+
+                Cart::where('user_id', $user_id)
+                    ->delete();
+            } else {
+
+                if ($item->quantity <= 1) {
+
+                    CartItem::where('cd_id', $cd_id)
+                        ->delete();
+                } else {
+                    CartItem::where('cd_id', $cd_id)->decrement('quantity');
                 }
-
-                $item = Cart::where('cd_id', $item->cd_id)
-                    ->update(['quantity' => $item->quantity - 1]);
-
-                return redirect()
-                    ->back()
-                    ->with('message', 'Cd has been removed successfully!')
-                    ->with('message_type', 'success');
             }
+
+            // Redirige a la página del carrito
+            return redirect()
+                ->route('cart.index')
+                ->with([
+                    'message' => 'Item removed from the cart successfully.',
+                    'message-type' => 'success',
+                ]);
         }
     }
 
-    public function confirmOrder(){
 
+    public function confirmOrder()
+    {
         Cart::truncate();
 
         return redirect()
-        ->back()
-        ->with('message', 'We have received your order 😊')
-        ->with('message_type', 'success');
-
+            ->back()
+            ->with('message', 'We have received your order 😊')
+            ->with('message_type', 'success');
     }
 }

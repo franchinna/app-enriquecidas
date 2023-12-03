@@ -6,9 +6,8 @@
 
 @section('title', $cd->title . ' - Cidi Market')
 @section('main')
-
-    <div class="container  py-4">
-        <div class="row justify-content-center view-product bg-form border p-4 rounded">
+    <div class="container py-4">
+        <div class="row justify-content-center view-product border p-4 rounded">
             <div class="col-12 mb-3 text-end">
                 @guest
                     <p class="alert alert-info text-center" role="alert">
@@ -18,11 +17,13 @@
             </div>
 
             <div class="col-md-5 img-centered">
-                @if(Storage::disk('public')->exists($cd->imagen))
-                    {{-- Con el helper "asset" podemos imprimir un archivo de public. Para que salga de storage, simplemente le prefijamos la ruta 'storage/'. --}}
-                    <img src="{{ asset('storage/app/public/' . $cd->imagen) }}" alt="Album cover {{ $cd->title }}">
+                @if (Storage::disk('public')->exists($cd->imagen))
+                    <img src="{{ asset('storage/' . $cd->imagen) }}"
+                        alt="Album cover {{ $cd->title }}" class="img-fluid  img-home-galery ">
+                @else
+                    <img src="<?= url('imgs/image.svg') ?>"
+                        alt="Album cover {{ $cd->artist->name }} - {{ $cd->title }}">
                 @endif
-                <img src="<?= url('imgs/image.svg') ?>" alt="{{ $cd->title }} album cover" class="img-fluid">
             </div>
 
             <div class="col-md-7">
@@ -43,7 +44,7 @@
 
                 <div class="d-flex justify-content-end gap-8 mt-4">
                     @auth
-                        @if ($userRol < 2)
+                        @if (auth()->user()->rol == 1)
                             <form action="{{ route('cds.delete', ['cd' => $cd->cd_id]) }}" method="post" class="d-inline">
                                 @csrf
                                 @method('DELETE')
@@ -63,8 +64,4 @@
             </div>
         </div>
     </div>
-
-
-
-
 @endsection

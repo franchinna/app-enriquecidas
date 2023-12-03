@@ -17,9 +17,7 @@ class CdsController extends Controller
     public function index(Request $request)
     {
 
-
         $formParams = [];
-        $userRol = 0;
 
         $cdsQuery = Cd::with('artist', 'genres');
 
@@ -39,23 +37,12 @@ class CdsController extends Controller
                 ]);
         }
 
-        if (Auth::user() != null) {
-            $userRol = Auth::user()->rol;
-        }
-
-        return view('cds.index', compact('cds', 'formParams', 'userRol'));
+        return view('cds.index', compact('cds', 'formParams'));
     }
 
     public function view(Cd $cd)
     {
-
-        $userRol = 0;
-
-        if (Auth::user() != null) {
-            $userRol = Auth::user()->rol;
-        }
-
-        return view('cds.view', compact('cd', 'userRol'));
+        return view('cds.view', compact('cd'));
     }
 
     public function newForm()
@@ -70,30 +57,27 @@ class CdsController extends Controller
     public function create(Request $request)
     {
 
-
-        $request->validate(Artist::$rules, Cd::$rules);
-
-        //dd($request->all());
-        //dd($request->hasFile('imagen'));
+        $request->validate(Cd::$rules);
 
         $data = $request->only(['title', 'description', 'duration', 'cost', 'release_date', 'artist_id', 'genre_id']);
 
         if ($request->hasFile('imagen')) {
             $imagen = $request->file('imagen');
 
-            $nombreImagen = time().'.'.$request->imagen->clientExtension();  
+            $nombreImagen = time() . '.' . $request->imagen->clientExtension();
 
             Image::make($imagen)->resize(800, 800, function ($constraint) {
                 $constraint->upsize();
                 $constraint->aspectRatio();
-            })->save(storage_path('imgs/' . $nombreImagen));
+            })->save(storage_path('app/public/imgs/' . $nombreImagen));
+
             $data['imagen'] = 'imgs/' . $nombreImagen;
-            //dd($imagen);
         }
 
         $cd = Cd::create($data);
 
-        $cd->genres()->attach($request->input('genre_id'));
+        //$cd->genres()->attach($request->input('artist_id'));
+        $cd->genres()->sync($request->input('genre_id'));
 
         return redirect()
             ->route('cds.index')
@@ -103,27 +87,28 @@ class CdsController extends Controller
 
     public function editForm(Cd $cd)
     {
-
         $artists = Artist::all();
         $genres = Genre::all();
 
-        //dd($rol);
+        // Busca si ya hay un elemento de Cd en el carrito
+        $cdArtist = Artist::where('artist_id', $cd->artist_id)
+            ->first();
 
-        return view('cds.edit', compact('cd', 'artists', 'genres'));
+        return view('cds.edit', compact('cd','cdArtist', 'artists', 'genres'));
     }
 
     public function edit(Request $request, Cd $cd)
     {
 
         $request->validate(Cd::$rules);
-        $cd->update($request->only(['title', 'description', 'duration', 'cost', 'release_date', 'artist_id']));
 
+        $cd->update($request->only(['title', 'description', 'duration', 'cost', 'release_date', 'artist_id']));
         $cd->genres()->sync($request->input('genre_id'));
 
         return redirect()
             ->route('cds.index')
             ->with([
-                'message' => "CD updated successful",
+                'message' => "CD '{$cd->title}' updated successfully.",
                 'message-type' => 'success',
             ]);
     }
@@ -134,13 +119,10 @@ class CdsController extends Controller
         $cd->genres()->detach();
         $cd->delete();
 
-        Cart::where('cd_id', $cd->cd_id)
-            ->delete();
-
         return redirect()
             ->route('cds.index')
             ->with([
-                'message' => "CD updated successful",
+                'message' => "CD '{$cd->title}' deleted successfully.",
                 'message-type' => 'success',
             ]);
     }

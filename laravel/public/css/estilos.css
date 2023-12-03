@@ -4,6 +4,7 @@
     /*font-family: "Ubuntu", sans-serif;*/
     box-sizing: border-box;
     font-family: 'Inter', sans-serif;
+    font-size: 16px;
 }
 
 html, body {
@@ -19,19 +20,34 @@ html, body {
     grid-template-columns: 100%;
   }
 
+.button-cart{
+    float: right;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin: 0 1rem 1rem 0;
+    filter: drop-shadow(0px 5px 5px #5e5eff);
+}
+
 h1,
 h2,
 h3,
 h4,
 h5,
 h6, .card-text, h2 a {
-    /* font-family: "Montserrat", sans-serif; */
     font-family: 'Saira', sans-serif;
+}
+
+p, h2, .description{
     color: #343a40;
 }
 
-.p{
-    font-family: 'Inter', sans-serif;
+h2 a{
+    font-size: 2rem;
+}
+h3{
+    font-size: 1.25rem;
+    color: #5e5eff!important;
 }
 
 .text-primary{
@@ -54,7 +70,7 @@ a.text-primary:hover{
     color: #7070ff;
 }
 
-.subtitle{
+.subtitle, .subtitle b, footer p{
     color: white;
 }
 
@@ -72,6 +88,11 @@ a.text-primary:hover{
 
 .card a{
     text-decoration: none;
+}
+
+.img-home-galery{
+    aspect-ratio: 800/800;
+    object-fit: contain;
 }
 
 .card-title{
@@ -129,6 +150,10 @@ a.text-primary:hover{
     color: white;
     background-color: #5e5eff;
     border-color: #5e5eff;
+  }
+
+  .btn-warning i{
+    color: white;
   }
 
 .btn-warning:hover {
@@ -198,6 +223,16 @@ a.text-primary:hover{
     box-shadow: 0 0 0 .2rem rgba(0,123,255,.25);
 }
 
+input::file-selector-button {
+    color: white;
+    padding: 0.5em;
+    border-radius: 5px;
+    border: none;
+    background-color: #7070ff;
+    font-size: .875rem;
+    display: inline-block;
+  }
+
 .view-product .cost{
     font-size: 2em;
     color: #7070ff;
@@ -243,3 +278,15 @@ a.text-primary:hover{
     }
 }
   
+/* Profile Page */
+
+.profile-box{
+    position: relative;
+}
+
+.profile-box a{
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 1rem
+}

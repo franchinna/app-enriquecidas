@@ -8,7 +8,7 @@
 
 @section('main')
 
-    @if (count($cart) < 1)
+    @if (!$cart)
         <div class="container-fluid py-5 my-5">
             <div class="container py-4">
                 <div class="row justify-content-center">
@@ -25,30 +25,28 @@
             <div class="container py-4">
                 <div class="row justify-content-center">
                     <div class="col-12 col-md-8 bg-light p-5 rounded border">
-                        <h1 class="pb-4">Shopping cart</h1>
+                        <h1 class="pb-4">Order list # {{$cart->id}}</h1>
                         <table class="table table-striped table-hover">
                             <thead>
                                 <tr>
-                                    <th scope="col" class="td-center">Item ID</th>
-                                    <th scope="col">CD Title</th>
+                                    <th scope="col">Album name</th>
                                     <th scope="col" class="td-center">Quantity</th>
                                     <th scope="col" class="td-center">Sub total</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($cart as $item)
+                                    @foreach ($cartItems as $item)
                                     <tr>
-                                        <th scope="row" class="td-center">{{ $item->cd_id }}</th>
-                                        <td>{{ $item->cd->title }}</td>
+                                        <th scope="row">{{$item->cd->title}}</th>
                                         <td class="td-center">
-                                            <a href="{{ url('add-to-cart/' . $item->cd_id) }}" class="m-2 p-2">+</a>
-                                            {{ $item->quantity }}
                                             <a href="{{ url('remove-to-cart/' . $item->cd_id) }}" class="m-2 p-2">-</a>
-
+                                            {{ $item->quantity }}
+                                            <a href="{{ url('add-to-cart/' . $item->cd_id) }}" class="m-2 p-2">+</a>
                                         </td>
                                         <td class="td-center">USD {{ ($item->quantity * $item->cd->cost) / 100 }}</td>
                                     </tr>
-                                @endforeach
+                                    @endforeach
+                                
                             </tbody>
                         </table>
 
@@ -59,8 +57,8 @@
                                 </p>
                             @endguest
                             @auth()
-                                <a href="#" class="btn btn-warning" data-toggle="modal"
-                                    data-target="#cartConfirm">Check Out</a>
+                                <a href="#" class="btn btn-warning" data-toggle="modal" data-target="#cartConfirm">Check
+                                    Out</a>
                             @endauth
                         </div>
                     </div>
@@ -81,12 +79,12 @@
                         </div>
                         <div class="modal-body text-center">
                             <p style="font-size:4rem">
-                                <img src="<?= url('imgs/email.svg'); ?>" alt="" class="img-fluid w-50">
+                                <img src="<?= url('imgs/email.svg') ?>" alt="" class="img-fluid w-50">
                             </p>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            <a href="{{ url('order.confirm')}}" class="btn btn-success">Yes, confirm</a>
+                            <a href="{{ url('order.confirm') }}" class="btn btn-success">Yes, confirm</a>
                         </div>
                     </div>
                 </div>

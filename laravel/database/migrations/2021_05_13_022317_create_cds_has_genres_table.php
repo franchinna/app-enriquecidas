@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateCdsHasGenresTable extends Migration
 {
-    /**
+/**
      * Run the migrations.
      *
      * @return void
@@ -14,12 +14,10 @@ class CreateCdsHasGenresTable extends Migration
     public function up()
     {
         Schema::create('cds_has_genres', function (Blueprint $table) {
-            $table->id('cds_has_genres');
+            $table->id('id');
             $table->foreignId('cd_id')->constrained('cds', 'cd_id');
-            $table->unsignedSmallInteger('genre_id');
+            $table->foreignId('genre_id')->constrained('genres', 'genre_id');
             $table->timestamps();
-
-            $table->foreign('genre_id')->references('genre_id')->on('genres');
         });
     }
 

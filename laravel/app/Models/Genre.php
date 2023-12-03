@@ -25,5 +25,14 @@ class Genre extends Model
 {
     //use HasFactory;
     protected $table = 'genres';
-    protected $primaryKey = 'genre_id';
+    protected $primaryKey = 'genre_id';    
+    
+    protected $fillable = [
+        'name',
+     ];
+  
+     /** @var string[] Reglas de validacion */
+     public static $rules = [
+        'name' => 'required',
+     ];
 }
