@@ -9,7 +9,7 @@
 <div class="container">
     <div class="row justify-content-center bg-light rounded m-2">
         <div class="col-md-6 align-self-center p-4">
-            <h1>Create new CD</h1>
+            <h2>Create new CD</h2>
             <p>Please, complete the form to add the album to the sales list</p>
             <img src="<?= url('imgs/add_post.svg'); ?>" alt="Image new form" class="img-fluid d-none d-md-block">
         </div>

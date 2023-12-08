@@ -7,7 +7,7 @@
         <div class="row justify-content-center mx-2">
             <div class="col-12 text-center">
                 <img src="<?= url('imgs/login.svg') ?>" alt="Login img" class="img-fluid img-login">
-                <h1>Sign-Up</h1>
+                <h2>Sign-Up</h2>
                 <p>Complete the form to start enjoying our offers</p>
             </div>
 

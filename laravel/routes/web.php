@@ -63,14 +63,22 @@ Route::prefix('/cds')->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/order.confirm', [CartController::class, 'confirmOrder'])
-    ->name('cart.confirmOrder');
+        ->name('cart.confirmOrder');
 
-
-    Route::get('/admin', [ShippingController::class, 'index'])
+    Route::get('/admin', [AuthController::class, 'adminIndex'])
         ->name('admin.index');
 
     Route::get('/profile', [AuthController::class, 'profile'])
         ->name('auth.profile');
+
+    Route::get('/{user}/edit', [AuthController::class, 'editForm'])
+        ->name('users.editForm');
+
+    Route::put('/{user}/edit', [AuthController::class, 'edit'])
+        ->name('users.edit');
+    
+    Route::delete('/{user}/delete', [AuthController::class, 'delete'])
+        ->name('users.delete');
 });
 
 Route::prefix('/cart')->group(function () {

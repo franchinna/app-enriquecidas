@@ -13,7 +13,7 @@
             <div class="container py-4">
                 <div class="row justify-content-center">
                     <div class="col-6 text-center cart-empty h-100 rounded border">
-                        <h1 class="m-4">Your cart is empty</h1>
+                        <h2 class="m-4">Your cart is empty</h2>
                         <p>Let's change that - use the app to discover </br> thousand of great deals</p>
                         <a href="{{ url('/') }}" class="btn btn-warning">Return to shop</a>
                     </div>
@@ -25,7 +25,7 @@
             <div class="container py-4">
                 <div class="row justify-content-center">
                     <div class="col-12 col-md-8 bg-light p-5 rounded border">
-                        <h1 class="pb-4">Order list # {{$cart->id}}</h1>
+                        <h2 class="pb-4">Order list # {{$cart->id}}</h2>
                         <table class="table table-striped table-hover">
                             <thead>
                                 <tr>

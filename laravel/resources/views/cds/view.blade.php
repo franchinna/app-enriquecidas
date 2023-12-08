@@ -49,7 +49,7 @@
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-outline-danger">
-                                    <i class="bi bi-x-octagon mr-2"></i> Detele
+                                    <i class="bi bi-x-octagon mr-2"></i> Delete
                                 </button>
                             </form>
                             <a href="{{ route('cds.editForm', ['cd' => $cd->cd_id]) }}" class="btn btn-outline-secondary">

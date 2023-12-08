@@ -16,7 +16,6 @@ class CdsController extends Controller
 {
     public function index(Request $request)
     {
-
         $formParams = [];
 
         $cdsQuery = Cd::with('artist', 'genres');

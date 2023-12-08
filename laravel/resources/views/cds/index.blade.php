@@ -12,7 +12,7 @@
     <div class="container d-flex  py-4">
         <div class="row justify-content-center">
             <div @guest class="col-md-12" @endguest @auth class="col-md-9" @endauth>
-                <h1>Discographies List</h1>
+                <h2>Discographies List</h2>
                 <p class="text-secondary">Explore our vast collection of CDs on our platform</p>
             </div>
             @auth

@@ -24,14 +24,16 @@
     <div class="mega-container">
         @if(url()->current() == url('/login') || url()->current() == url('/register'))
         <header>
+            <h1 class="sr-only">Cidi Market - The best place to buy CDs</h1>
             <a href="<?= url('/'); ?>" class="btn btn-dark m-3" role="button">
-                <i class="bi bi-backspace"></i> Back to home page
+                Go back
             </a>
         </header>   
         @else
         <header class="">
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div class="container-fluid">
+                    <h1 class="sr-only">Cidi Market - The best place to buy CDs</h1>
                     <a class="navbar-brand" href="<?= url('/') ?>">Cidi Market</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar"
                         aria-controls="navbar" aria-expanded="false" aria-label="Abrir/cerrar menú de navegación">

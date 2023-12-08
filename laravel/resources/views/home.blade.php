@@ -12,7 +12,7 @@
     <div class="container">
         <div class="row align-items-center justify-content-between">
             <div class="col col-lg-6">
-                <h1 class="mt-5">Bring Your Music Collection to Life: Buy CDs from All Your Favorite Artists</h1>
+                <h2 class="mt-5">Bring Your Music Collection to Life: Buy CDs from All Your Favorite Artists</h2>
                 <p class="subtitle">Get Your Groove On: Browse <b>Our Extensive Collection</b> of CDs from Popular Artists and Bands</p>
             </div>
         </div>

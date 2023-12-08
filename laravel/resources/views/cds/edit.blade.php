@@ -13,7 +13,7 @@
 <div class="container py-4">
     <div class="row justify-content-center bg-light rounded m-2">
         <div class="col-md-6 align-self-center p-4">
-            <h1>Update CD</h1>
+            <h2>Update CD</h2>
             <p>Please, complete the form to update the album to the sales list</p>
             @if (Storage::disk('public')->exists($cd->imagen))
             <img src="{{ asset('storage/' . $cd->imagen) }}"
@@ -85,7 +85,7 @@
                 @csrf
                 @method('DELETE')
                 <button class="btn btn-outline-danger mr-2 float-right">
-                    Detele CD <i class="bi bi-x-octagon ml-2"></i>
+                    Delete CD <i class="bi bi-x-octagon ml-2"></i>
                 </button>
             </form>
         </div>

@@ -7,7 +7,7 @@
         <div class="row justify-content-center">
             <div class="col-12 text-center">
                 <img src="<?= url('imgs/login.svg') ?>" alt="Login img" class="img-fluid img-login">
-                <h1>Sign-In</h1>
+                <h2>Sign-In</h2>
             </div>
 
             <div class="bg-form rounded border py-3 px-4">
