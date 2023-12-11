@@ -18,7 +18,7 @@
             </div>
 
             <div class="bg-form rounded border p-3 col-12">
-                <form action="{{ route('users.edit', ['user' => $user->id]) }}" method="post">
+                <form action="{{ route('admin.edit', ['user' => $user->id]) }}" method="post">
                     @csrf
                     @method('PUT')
                     <div class="form-group mb-3">
@@ -46,7 +46,7 @@
                           <label class="input-group-text" for="inputGroupSelect01">User privileges</label>
                         </div>
                         <select class="custom-select" name="rol_id" id="rol_id" @error('rol_id') is-invalid @enderror"  @error('rol_id') aria-describedby="error-rols" @enderror >
-                            <option value="{{$user->rol_id}}">{{$user->name}}</option>
+                            <option value="{{$user->rol_id}}">{{$user->rol_name}}</option>
                             @foreach($rols as $rol)
                                 @if($rol->rol_id != $user->rol_id){
                                     <option value="{{$rol->rol_id}}" @if(old('rol_id') == $rol->rol_id) selected @endif>{{$rol->name}}</option>
@@ -71,7 +71,7 @@
 
                     <div class="form-group mb-3 text-right">
     
-                        <a href="<?= url('/profile'); ?>" class="btn btn-light mr-2" role="button">
+                        <a href="<?= url('/admin'); ?>" class="btn btn-light mr-2" role="button">
                             Go back
                         </a>
                         <button type="submit" class="btn btn-warning text-white">
@@ -86,7 +86,7 @@
             <div class=" col-12 bg-form my-2">
                 <div class="d-flex justify-content-between align-items-center alert alert-warning my-3" role="alert">
                     <label for="password" class="form-label mb-0 mr-2">Do you want delete your user?</label> 
-                    <form action="{{ route('users.delete', ['user' => $user->id]) }}" method="post">
+                    <form action="{{ route('admin.delete', ['user' => $user->id]) }}" method="post">
                         @csrf
                         @method('DELETE')
                         <button class="btn btn-sm btn-danger">

@@ -4,16 +4,94 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Cart;
+use App\Models\Rol;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use LaravelDaily\LaravelCharts\Classes\LaravelChart;
+
 
 class AuthController extends Controller
 {
 
     public function adminIndex()
     {
-        $users = User::all();
-        $carts = Cart::with('user')->paginate(3);
+        return view('admin.index');
+    }    
+
+    public function adminCartPage()
+    {
+        $carts = Cart::paginate(4);
+
+        $chart_options = [
+            'chart_title' => 'Users by months',
+            'report_type' => 'group_by_date',
+            'model' => 'App\Models\User',
+            'group_by_field' => 'created_at',
+            'group_by_period' => 'month',
+            'chart_type' => 'pie',
+        ];
+
+        $chart = new LaravelChart($chart_options);
+
+        $chart_options = [
+            'chart_title' => 'Users deleted',
+            'report_type' => 'group_by_string',
+            'model' => 'App\Models\User',
+            'group_by_field' => 'available',
+            'chart_type' => 'pie',
+        ];
+
+        $chart2 = new LaravelChart($chart_options);
+
+        $chart_options = [
+            'chart_title' => 'Users',
+            'report_type' => 'group_by_date',
+            'model' => 'App\Models\User',
+            'group_by_field' => 'created_at',
+            'group_by_period' => 'month',
+            'chart_type' => 'pie',
+        ];
+
+        $chart3 = new LaravelChart($chart_options);
+
+        return view('admin.carts', compact('carts', 'chart', 'chart2', 'chart3'));
+    }
+
+    public function adminUserPage()
+    {
+        $users = User::paginate(4);
+
+        $chart_options = [
+            'chart_title' => 'Users by months',
+            'report_type' => 'group_by_date',
+            'model' => 'App\Models\User',
+            'group_by_field' => 'created_at',
+            'group_by_period' => 'month',
+            'chart_type' => 'pie',
+        ];
+
+        $chart = new LaravelChart($chart_options);
+
+        $chart_options = [
+            'chart_title' => 'Users deleted',
+            'report_type' => 'group_by_string',
+            'model' => 'App\Models\User',
+            'group_by_field' => 'available',
+            'chart_type' => 'pie',
+        ];
+
+        $chart2 = new LaravelChart($chart_options);
+
+        $chart_options = [
+            'chart_title' => 'Users',
+            'report_type' => 'group_by_date',
+            'model' => 'App\Models\User',
+            'group_by_field' => 'created_at',
+            'group_by_period' => 'month',
+            'chart_type' => 'pie',
+        ];
+
+        $chart3 = new LaravelChart($chart_options);
 
         if ($users->isEmpty()) {
             return redirect()
@@ -24,14 +102,14 @@ class AuthController extends Controller
                 ]);
         }
 
-        return view('admin.index', compact('users', 'carts'));
+        return view('admin.users', compact('users', 'chart', 'chart2', 'chart3'));
     }
 
     public function profile()
     {
         $carts = Cart::with('user')
-                        ->where('user_id', auth()->id())                
-                        ->paginate(3);
+            ->where('user_id', auth()->id())
+            ->paginate(3);
 
         return view('auth.profile', compact('carts'));
     }
@@ -41,34 +119,40 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
-    public function registerForm()
-    {
-        return view('auth.register');
-    }
-
     public function login(Request $request)
     {
-
         $request->validate(User::$rules);
 
-        $credentials = $request->only(['password', 'email']);
+        $credentials = $request->only(['email', 'password']);
 
         if (!auth()->attempt($credentials)) {
             return redirect()
-                ->route('auth.login-form')
-                ->withInput()
+                ->route('auth.login')
+                ->withInput($request->only('email'))
                 ->with([
-                    'message' => "The credentials do not match our registry",
+                    'message' => 'The credentials do not match our records.',
                     'message-type' => 'danger',
                 ]);
+        }
+
+        $cart = Cart::with('user')
+            ->where('user_id', NULL)->first();
+
+        if ($cart) {
+            $cart->update(['user_id' => auth()->id()]);
         }
 
         return redirect()
             ->route('home')
             ->with([
-                'message' => "Welcome",
+                'message' => 'Welcome!',
                 'message-type' => 'success',
             ]);
+    }
+
+    public function registerForm()
+    {
+        return view('auth.register');
     }
 
     public function register(Request $request)
@@ -103,57 +187,131 @@ class AuthController extends Controller
             ]);
     }
 
-    public function editForm(User $user)
+    public function delete(User $user)
     {
 
-        return view('auth.edit', compact('user'));
+        auth()->logout();
+        $user->delete();
 
+        return redirect()
+            ->route('home')
+            ->with([
+                'message' => "The user'{$user->name}' deleted successfully.",
+                'message-type' => 'success',
+            ]);
     }
 
-    public function admin_edit(Request $request, User $user)
+    public function adminDelete(User $user)
+    {
+        $user->available = 'N';
+        dd($user->available);
+
+        $user->update($user->only(['available']));
+
+        return redirect()
+            ->route('admin.index')
+            ->with([
+                'message' => "The user '{$user->name}' deleted successfully.",
+                'message-type' => 'success',
+            ]);
+    }
+
+    public function editForm(User $user)
+    {
+        if (auth()->id() === $user->id) {
+
+            $rols = Rol::all();
+            $user =  User::select('users.*', 'rols.name as rol_name')
+                ->join('rols', 'users.rol_id', '=', 'rols.rol_id')
+                ->where('users.id', '=', $user->id)
+                ->first();
+
+            return view('auth.edit', compact('user', 'rols'));
+        } else {
+            return redirect()
+                ->route('auth.profile')
+                ->with([
+                    'message' => "You cant modify other users 🧐",
+                    'message-type' => 'warning',
+                ]);
+        }
+    }
+
+    public function edit(Request $request, User $user)
     {
 
-        if($user->rol === 1){
-            if($request->password){
-                $request->merge([
-                    'password' => Hash::make($request->password),
-                ]);
-    
-                $user->update($request->only(['name', 'email', 'rol', 'password']));
-            }else{
-                $user->update($request->only(['name', 'email', 'rol']));
-            }
-    
-            return redirect()
-                ->back()
-                ->with([
-                    'message' => "The User '{$user->name}' updated successfully.",
-                    'message-type' => 'success',
-                ]);
-        }else if ($request->id === $user->id){
-            if($request->password){
-                $request->merge([
-                    'password' => Hash::make($request->password),
-                ]);
-    
-                $user->update($request->only(['name', 'email', 'rol', 'password']));
-            }else{
-                $user->update($request->only(['name', 'email', 'rol']));
-            }
+        if ($request->password) {
+
+            $request->merge(['password' => Hash::make($request->password)]);
+
+            $request->validate(User::$rules);
+
+            $user->update($request->only(['name', 'email', 'rol_id', 'password']));
+
+            auth()->logout();
 
             return redirect()
-            ->back()
-            ->with([
-                'message' => "The User '{$user->name}' updated successfully.",
-                'message-type' => 'success',
-            ]);
-        }else{
+                ->route('home')
+                ->with([
+                    'message' => 'Your password was changed successfully',
+                    'message-type' => 'success',
+                ]);
+        } else {
+
+            $request->merge(['password' => $user->password]);
+
+            $request->validate(User::$rules);
+
+            $user->update($request->only(['name', 'email', 'rol_id', 'password']));
+
             return redirect()
-            ->back()
+                ->route('auth.profile')
+                ->with([
+                    'message' => "The user '{$user->name}' updated successfully.",
+                    'message-type' => 'success',
+                ]);
+        }
+    }
+
+    public function adminEditPage(User $user)
+    {
+
+        $rols = Rol::all();
+        $user =  User::select('users.*', 'rols.name as rol_name')
+            ->join('rols', 'users.rol_id', '=', 'rols.rol_id')
+            ->where('users.id', '=', $user->id)
+            ->first();
+
+        return view('admin.edit', compact('user', 'rols'));
+    }
+
+    public function adminEdit(Request $request, User $user)
+    {
+
+        //dd($request, $user);
+
+        if ($request->password) {
+
+            $request->merge([
+                'password' => Hash::make($request->password),
+            ]);
+
+            $request->validate(User::$rules);
+
+            $user->update($request->only(['name', 'email', 'rol_id', 'password']));
+        } else {
+            $request->merge(['password' => $user->password]);
+
+            $request->validate(User::$rules);
+
+            $user->update($request->only(['name', 'email', 'rol_id', 'password']));
+        }
+
+        return redirect()
+            ->route('admin.index')
             ->with([
-                'message' => "You cant modify other users.",
+                'message' => "The user '{$user->name}' updated successfully.",
                 'message-type' => 'success',
             ]);
-        }
     }
 }

@@ -32,7 +32,7 @@ class CartController extends Controller
 
     public function view(Cart $cart)
     {
-        if (Auth::check()) {
+        if (auth()->check()) {
 
             // Buscamos el user_id en usuarios. 
             $user_id = Auth::user()->user_id;

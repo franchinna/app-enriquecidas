@@ -57,7 +57,7 @@
                                 </li>
                             @endguest
                             @auth()
-                                @if (auth()->user()->rol == 1)
+                                @if (auth()->user()->rol_id == 1)
                                     <li class="nav-item">
                                         <a class="nav-link <?= url()->current() == url('/admin') ? 'active' : '' ?>"
                                             href="<?= url('/admin') ?>">Panel admin</a>
@@ -111,6 +111,9 @@
             </div>
         </footer>
     </div>
+
+    @yield('script')
+    @yield('javascript')
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous">

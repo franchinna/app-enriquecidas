@@ -30,7 +30,6 @@ Route::get('/login', [AuthController::class, 'loginForm'])
 Route::get('/logout', [AuthController::class, 'logout'])
     ->name('auth.logout');
 
-
 Route::prefix('/register')->group(function () {
     Route::get('/', [AuthController::class, 'registerForm'])->name('auth.register-form');
     Route::post('/register', [AuthController::class, 'register'])->name('auth.register');
@@ -68,6 +67,18 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin', [AuthController::class, 'adminIndex'])
         ->name('admin.index');
 
+    Route::get('admin/users', [AuthController::class, 'adminUserPage'])
+        ->name('admin.users');
+    
+    Route::get('admin/carts', [AuthController::class, 'adminCartPage'])
+        ->name('admin.carts');
+    
+    Route::get('admin/edit/{user}', [AuthController::class, 'adminEditPage'])
+        ->name('admin.editForm');
+    
+    Route::put('admin/edit/{user}', [AuthController::class, 'adminEdit'])
+        ->name('admin.edit');
+
     Route::get('/profile', [AuthController::class, 'profile'])
         ->name('auth.profile');
 
@@ -79,6 +90,9 @@ Route::middleware(['auth'])->group(function () {
     
     Route::delete('/{user}/delete', [AuthController::class, 'delete'])
         ->name('users.delete');
+
+    Route::delete('admin/delete/{user}', [AuthController::class, 'adminDelete'])
+        ->name('admin.delete');
 });
 
 Route::prefix('/cart')->group(function () {

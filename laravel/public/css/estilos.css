@@ -302,6 +302,7 @@ th, td{
     vertical-align: middle!important;
 }
 
-.user-list, .order-list{
-    max-height: 400px;
+.bg-dotted{
+    border: 1px dashed #dee2e6;
+    background-color: #f6f6f6;
 }

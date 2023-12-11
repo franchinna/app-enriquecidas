@@ -15,7 +15,6 @@ class UsersSeeder extends Seeder
      */
     public function run()
     {
-        //
 
         DB::table('users')->insert([
 
@@ -24,32 +23,70 @@ class UsersSeeder extends Seeder
                 'id' => 1,
                 'email' => 'admin@admin.com',
                 'name' => 'Admin',
-                'rol' => 1,
+                'rol_id' => 1,
+                'available' => 'Y',
                 'password' => Hash::make('123456'),
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
+                'created_at' => date('2023-01-01'),
             ],
 
-            //Usuario normal, solo puede comprar. 
             [
                 'id' => 2,
                 'email' => 'test@test.com',
                 'name' => 'Test',
-                'rol' => 0,
+                'rol_id' => 2,
+                'available' => 'Y',
                 'password' => Hash::make('123456'),
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
+                'created_at' => date('2023-04-01'),
             ],
             
-            //Usuario normal, solo puede comprar. 
             [
                 'id' => 3,
                 'email' => 'terricola@terricola.com',
                 'name' => 'terricola',
-                'rol' => 0,
+                'rol_id' => 2,
+                'available' => 'Y',
                 'password' => Hash::make('123456'),
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
+                'created_at' => date('2023-03-01'),
+            ],
+            
+            [
+                'id' => 4,
+                'email' => 'pluton@pluton.com',
+                'name' => 'pluton',
+                'rol_id' => 2,
+                'available' => 'Y',
+                'password' => Hash::make('123456'),
+                'created_at' => date('2023-03-01'),
+            ],
+            
+            [
+                'id' => 5,
+                'email' => 'venus@venus.com',
+                'name' => 'venus',
+                'rol_id' => 2,
+                'available' => 'Y',
+                'password' => Hash::make('123456'),
+                'created_at' => date('2023-03-01'),
+            ],
+            
+            [
+                'id' => 6,
+                'email' => 'marte@marte.com',
+                'name' => 'marte',
+                'rol_id' => 2,
+                'available' => 'N',
+                'password' => Hash::make('123456'),
+                'created_at' => date('2023-04-01'),
+            ],
+            
+            [
+                'id' => 7,
+                'email' => 'urano@urano.com',
+                'name' => 'urano',
+                'rol_id' => 2,
+                'available' => 'N',
+                'password' => Hash::make('123456'),
+                'created_at' => date('2023-09-01'),
             ],
         ]);
     }

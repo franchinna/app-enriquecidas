@@ -8,12 +8,14 @@
         "php": "^7.3|^8.0",
         "barryvdh/laravel-debugbar": "^3.5",
         "barryvdh/laravel-ide-helper": "^2.10",
+        "consoletvs/charts": "^6.6",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "intervention/image": "^2.7",
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
+        "laraveldaily/laravel-charts": "^0.2.3",
         "swiftmailer/swiftmailer": "^6.3"
     },
     "require-dev": {

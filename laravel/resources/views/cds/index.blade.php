@@ -16,7 +16,7 @@
                 <p class="text-secondary">Explore our vast collection of CDs on our platform</p>
             </div>
             @auth
-                @if (auth()->user()->rol == 1)
+                @if (auth()->user()->rol_id == 1)
                     <div class="col-md-3 text-center add-cd my-mb-0 my-mb-0 my-2">
                         <a class="btn btn-light" href="{{ url('/cds/new') }}" role="button">
                             <i class="bi bi-plus-square mr-2"></i> Add CD
@@ -80,7 +80,7 @@
                                         </a>
                                     </li>
                                     @auth
-                                    @if (auth()->user()->rol == 1)
+                                    @if (auth()->user()->rol_id == 1)
                                             <li class="list-inline-item">
                                                 <a class="btn btn-outline-secondary"
                                                     href="{{ route('cds.editForm', ['cd' => $cd->cd_id]) }}">

@@ -44,7 +44,7 @@
 
                 <div class="d-flex justify-content-end gap-8 mt-4">
                     @auth
-                        @if (auth()->user()->rol == 1)
+                        @if (auth()->user()->rol_id == 1)
                             <form action="{{ route('cds.delete', ['cd' => $cd->cd_id]) }}" method="post" class="d-inline">
                                 @csrf
                                 @method('DELETE')

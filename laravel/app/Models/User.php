@@ -52,9 +52,10 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'rol',
+        'rol_id',
         'email',
-        'password',
+        'available',
+        'password'
     ];
 
     /** @var string[] Reglas de validacion */
@@ -81,4 +82,9 @@ class User extends Authenticatable
     protected $casts = [
         //'email_verified_at' => 'datetime',
     ];
+
+    public function rol()
+    {
+        return $this->belongsTo(Rol::class, 'rol_id');
+    }
 }

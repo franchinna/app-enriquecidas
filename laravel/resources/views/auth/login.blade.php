@@ -11,6 +11,10 @@
             </div>
 
             <div class="bg-form rounded border py-3 px-4">
+                @if (Session::has('message'))
+                    <div class="alert mb-2 alert-{{ Session::get('message-type', 'success') }} m-0">{{ Session::get('message') }}
+                    </div>
+                @endif
                 <form action="{{ route('auth.login') }}" method="post">
                     @csrf
                     <div class="form-group mb-2">
@@ -38,8 +42,9 @@
                         @enderror
                     </div>
                     <button type="submit" class="btn btn-warning text-white btn-block mb-2">Log in</button>
-                    <a href="<?= url('/forget-my-password') ?>"><small>Forgot your password?</small></a>
-                    or <a href="<?= url('/register') ?>"><small>I want to register</small></a>
+                    <div class="text-center">
+                        <a href="<?= url('/register') ?>"><small>I want to register</small></a>
+                    </div>
                 </form>
             </div>
         </div>

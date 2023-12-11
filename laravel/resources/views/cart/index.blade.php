@@ -20,6 +20,18 @@
                 </div>
             </div>
         </div>
+    @elseif($cart->user_id == null)
+    <div class="container-fluid py-5 my-5">
+        <div class="container py-4">
+            <div class="row justify-content-center">
+                <div class="col-6 text-center cart-empty h-100 rounded border">
+                    <h2 class="m-4">Sign ig</h2>
+                    <p>You will be able to see your cart and many more things</p>
+                    <a href="{{ url('/login') }}" class="btn btn-warning">Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
     @else
         <div class="container-fluid py-2 my-2">
             <div class="container py-4">
