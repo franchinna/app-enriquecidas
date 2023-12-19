@@ -34,7 +34,7 @@ class UsersSeeder extends Seeder
                 'email' => 'test@test.com',
                 'name' => 'Test',
                 'rol_id' => 2,
-                'available' => 'Y',
+                'available' => 'N',
                 'password' => Hash::make('123456'),
                 'created_at' => date('2023-04-01'),
             ],

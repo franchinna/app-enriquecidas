@@ -16,7 +16,7 @@
                 <p class="text-secondary">Manage users, shipments and analyze the different site metrics</p>
             </div>
             <div class="col-12">
-              <div class="d-flex gap-2 mb-4 justify-content-center">
+              <div class="d-flex gap-2 flex-wrap mb-4 justify-content-center">
                 <div class="border rounded p-4 text-center">
                   <img src="<?= url('imgs/Panel_list.svg') ?>" alt="Login img" class="img-fluid img-login">
                   <h3>Shipping list</h3>

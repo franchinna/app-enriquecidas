@@ -16,7 +16,7 @@
     @if (url()->current() != url('/cart'))
         <div class="button-cart">
             <a href="<?= url('/cart') ?>" class="btn btn-warning">
-                <i class="bi bi-cart mr-1"></i>View cart
+                <i class="bi bi-cart"></i> <div class="sr-only">Cart</div>
             </a>
         </div>
     @endif
@@ -114,6 +114,7 @@
 
     @yield('script')
     @yield('javascript')
+    @stack('js')
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous">

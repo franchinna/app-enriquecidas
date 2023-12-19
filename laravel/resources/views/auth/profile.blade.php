@@ -48,31 +48,40 @@
                     <div class="orders-list rounded p-4 border mb-3">
                         <h3>Orders List</h3>
                         <p class="text-secondary">List of pending, confirmed and rejected shipments</p>
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Order</th>
-                                    <th scope="col">Date</th>
-                                    <th scope="col">Status</th>
-                                    <th scope="col" class="text-center">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($carts as $cart)
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
                                     <tr>
-                                        <th scope="row">#0{{ $cart->id }}</th>
-                                        <td><span class="">{{ $cart->created_at }}</span></td>
-                                        <td><span class="badge badge-info">{{ $cart->status }}</span></td>
-                                        <td class="text-center">
-                                            <div class="btn-group" role="group" aria-label="Basic example">
-                                                <button type="button" title="Confirm order"
-                                                    class="btn btn-sm btn-info rounded">Detail</button>
-                                            </div>
-                                        </td>
+                                        <th scope="col">Order</th>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col" class="text-center">Actions</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @foreach ($carts as $cart)
+                                        <tr>
+                                            <th scope="row">#0{{ $cart->id }}</th>
+                                            <td><span class="">{{ $cart->created_at }}</span></td>
+                                            <td>   
+                                                @if ($cart->status === 'Finished')
+                                                    <span class="badge badge-light">{{ $cart->status }}</span>
+                                                @else
+                                                    <span class="badge badge-success">{{ $cart->status }}</span>
+                                                @endif
+                                            </td>
+                                            <td class="text-center">
+                                                <div class="btn-group" role="group" aria-label="Basic example">
+                                                    <a href="{{ route('cart.detail', ['cart' => $cart->id]) }}" title="Confirm order"
+                                                        class="btn btn-sm btn-warning rounded">Detail</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+
+                        </div>
                         <div>{{ $carts->links() }}</div>
                     </div>
                 @endif

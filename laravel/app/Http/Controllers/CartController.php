@@ -23,31 +23,14 @@ class CartController extends Controller
             ->where('cart_id', optional($cart)->id)
             ->get();
 
+        $totalPrice = $cartItems->sum(function ($cartItem) {
+            return $cartItem->cd->cost * $cartItem->quantity;
+        });
+
         if (!$cart) {
             return view('cart.index', compact('cart'));
         } else {
-            return view('cart.index', compact('cart', 'cartItems'));
-        }
-    }
-
-    public function view(Cart $cart)
-    {
-        if (auth()->check()) {
-
-            // Buscamos el user_id en usuarios. 
-            $user_id = Auth::user()->user_id;
-            dd($user_id);
-
-            $cart = Cart::where('user_id', $user_id)
-                ->where('status', 'In progress')
-                ->first();
-
-            return view('cart.view', compact('cart',));
-        } else {
-            return redirect()
-                ->route('auth.login')
-                ->with('message', 'Login to buy cds')
-                ->with('message_type', 'info');
+            return view('cart.index', compact('cart', 'cartItems', 'totalPrice'));
         }
     }
 
@@ -108,7 +91,7 @@ class CartController extends Controller
         // Si no hay un carrito en progreso, redirige a la página del carrito
         if (!$cart) {
             return redirect()
-                ->route('cart.index')
+                ->back()
                 ->with([
                     'message' => 'The cart is empty.',
                     'message-type' => 'info',
@@ -141,7 +124,7 @@ class CartController extends Controller
 
             // Redirige a la página del carrito
             return redirect()
-                ->route('cart.index')
+                ->back()
                 ->with([
                     'message' => 'Item removed from the cart successfully.',
                     'message-type' => 'success',
@@ -149,14 +132,20 @@ class CartController extends Controller
         }
     }
 
+    public function cartDetail($cart){
 
-    public function confirmOrder()
-    {
-        Cart::truncate();
+        //dd($cart);
 
-        return redirect()
-            ->back()
-            ->with('message', 'We have received your order 😊')
-            ->with('message_type', 'success');
+        //$user_id = auth()->id();
+
+        $cartItems = CartItem::with('cd')
+            ->where('cart_id', $cart)
+            ->get();
+
+        $totalPrice = $cartItems->sum(function ($cartItem) {
+            return $cartItem->cd->cost * $cartItem->quantity;
+        });
+
+        return view('cart.detail', compact('cart', 'cartItems', 'totalPrice'));
     }
 }

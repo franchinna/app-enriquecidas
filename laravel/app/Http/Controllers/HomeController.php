@@ -17,7 +17,7 @@ class HomeController extends Controller
 
         // $cart = Cart::find($user_id);
 
-        $cds = Cd::with('artist', 'genres')->get();
+        $cds = Cd::with('artist', 'genres')->where('available', 'Y')->get();
         return view('home', compact('cds'));
     }
 }

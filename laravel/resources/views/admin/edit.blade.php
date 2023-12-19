@@ -84,6 +84,7 @@
                 </form>
             </div>
             <div class=" col-12 bg-form my-2">
+                @if($user->available !== 'N')
                 <div class="d-flex justify-content-between align-items-center alert alert-warning my-3" role="alert">
                     <label for="password" class="form-label mb-0 mr-2">Do you want delete your user?</label> 
                     <form action="{{ route('admin.delete', ['user' => $user->id]) }}" method="post">
@@ -94,6 +95,19 @@
                         </button>
                     </form>
                 </div>
+                @else                
+                <div class="d-flex justify-content-between align-items-center alert alert-success my-3" role="alert">
+                    <label for="password" class="form-label mb-0 mr-2">Do you want delete your user?</label> 
+                    <form action="{{ route('admin.activate', ['user' => $user->id]) }}" method="post">
+                        @csrf
+                        @method('post')
+                        <button class="btn btn-sm btn-success">
+                            Activate user
+                        </button>
+                    </form>
+                </div>
+
+                @endif
             </div>
         </div>
     </div>

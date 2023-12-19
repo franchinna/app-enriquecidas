@@ -11,15 +11,15 @@
 
     <div class="container d-flex  py-4">
         <div class="row justify-content-center">
-            <div @guest class="col-md-12" @endguest @auth class="col-md-9" @endauth>
+            <div @guest class="col-md-12" @endguest @auth class="col-md-6" @endauth>
                 <h2>Discographies List</h2>
                 <p class="text-secondary">Explore our vast collection of CDs on our platform</p>
             </div>
             @auth
                 @if (auth()->user()->rol_id == 1)
-                    <div class="col-md-3 text-center add-cd my-mb-0 my-mb-0 my-2">
-                        <a class="btn btn-light" href="{{ url('/cds/new') }}" role="button">
-                            <i class="bi bi-plus-square mr-2"></i> Add CD
+                    <div class="col align-self-center text-right">
+                        <a class="btn btn-info mb-2 mb-lg-0" href="{{ url('/cds/new') }}" role="button">
+                            New cd
                         </a>
                     </div>
                 @endif
@@ -87,7 +87,7 @@
                                                     <i class="bi bi-pencil-square"></i>
                                                 </a>
                                             </li>
-                                            <li class="list-inline-item">
+                                            <li class="list-inline-item d-none">
                                                 <form action="{{ route('cds.delete', ['cd' => $cd->cd_id]) }}" method="post">
                                                     @csrf
                                                     @method('DELETE')

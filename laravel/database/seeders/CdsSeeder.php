@@ -24,7 +24,8 @@ class CdsSeeder extends Seeder
             'release_date' => '1977-01-21',
             'artist_id' => 1,
             'created_at' => date('Y-m-d'),
-            'updated_at' => date('Y-m-d')
+            'updated_at' => date('Y-m-d'),
+            'available' => 'Y'
             ],
             [
             'cd_id' => 2,
@@ -36,7 +37,8 @@ class CdsSeeder extends Seeder
             'release_date' => '1973-03-01',
             'artist_id' => 1,
             'created_at' => date('Y-m-d'),
-            'updated_at' => date('Y-m-d')
+            'updated_at' => date('Y-m-d'),
+            'available' => 'Y'
             ],
             [
             'cd_id' => 3,
@@ -48,7 +50,8 @@ class CdsSeeder extends Seeder
             'release_date' => '1979-11-30',
             'artist_id' => 1,
             'created_at' => date('Y-m-d'),
-            'updated_at' => date('Y-m-d')
+            'updated_at' => date('Y-m-d'),
+            'available' => 'Y'
             ],
             [
             'cd_id' => 4,
@@ -60,7 +63,8 @@ class CdsSeeder extends Seeder
             'release_date' => '1999-09-13',
             'artist_id' => 3,
             'created_at' => date('Y-m-d'),
-            'updated_at' => date('Y-m-d')
+            'updated_at' => date('Y-m-d'),
+            'available' => 'Y'
             ],
             [
             'cd_id' => 5,
@@ -76,7 +80,8 @@ class CdsSeeder extends Seeder
             'release_date' => date('2002-01-25'),
             'artist_id' => 2,
             'created_at' => date('Y-m-d'),
-            'updated_at' => date('Y-m-d')
+            'updated_at' => date('Y-m-d'),
+            'available' => 'Y'
             ],
 
         ]);

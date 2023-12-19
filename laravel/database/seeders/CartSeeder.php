@@ -59,20 +59,6 @@ class CartSeeder extends Seeder
                 'created_at' => date('2023-02-01'),
                 'updated_at' => now(),
             ],
-            [
-                'id' => 7,
-                'user_id' => 2,
-                'status' => 'Finished',
-                'created_at' => date('2023-03-01'),
-                'updated_at' => now(),
-            ],
-            [
-                'id' => 8,
-                'user_id' => 1,
-                'status' => 'Finished',
-                'created_at' => date('2023-04-01'),
-                'updated_at' => now(),
-            ],
         ]);
     }
 }

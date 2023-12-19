@@ -17,9 +17,10 @@ class CreateCdsTable extends Migration
             $table->id('cd_id');
             $table->string('title', 100);
             $table->text('description');
-            $table->unsignedSmallInteger('duration');
+            $table->unsignedBigInteger('duration');
             $table->unsignedBigInteger('cost')->nullable();
             $table->date('release_date')->nullable();
+            $table->string('available');
             $table->timestamps();
         });
     }

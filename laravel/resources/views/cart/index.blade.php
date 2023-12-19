@@ -6,6 +6,29 @@
 
 @section('title', 'Cart - Cidi Market')
 
+@if($cart)
+    @push('js')
+        <script src="https://sdk.mercadopago.com/js/v2"></script>
+        <script>
+        // Inicializamos MP.
+        const mp = new MercadoPago('{{config("services.mercadopago.key")}}', {
+            locale: 'es-AR'
+        });
+
+        mp.checkout({
+            preference: {
+                // MUY IMPORTANTE: No se olviden de poner las comillas alrededor del php.
+                id: '{{ $preference->id ?? ''}}'
+            },
+            render: {
+                container: '#meli-button',
+                label: 'Confirm & pay'
+            },
+        });
+        </script>
+    @endpush
+@endif
+
 @section('main')
 
     @if (!$cart)
@@ -38,29 +61,36 @@
                 <div class="row justify-content-center">
                     <div class="col-12 col-md-8 bg-light p-5 rounded border">
                         <h2 class="pb-4">Order list # {{$cart->id}}</h2>
-                        <table class="table table-striped table-hover">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Album name</th>
-                                    <th scope="col" class="td-center">Quantity</th>
-                                    <th scope="col" class="td-center">Sub total</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                    @foreach ($cartItems as $item)
-                                    <tr>
-                                        <th scope="row">{{$item->cd->title}}</th>
-                                        <td class="td-center">
-                                            <a href="{{ url('remove-to-cart/' . $item->cd_id) }}" class="m-2 p-2">-</a>
-                                            {{ $item->quantity }}
-                                            <a href="{{ url('add-to-cart/' . $item->cd_id) }}" class="m-2 p-2">+</a>
-                                        </td>
-                                        <td class="td-center">USD {{ ($item->quantity * $item->cd->cost) / 100 }}</td>
-                                    </tr>
-                                    @endforeach
-                                
-                            </tbody>
-                        </table>
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Album name</th>
+                <th scope="col" class="td-center">Quantity</th>
+                <th scope="col" class="td-center">Sub total</th>
+            </tr>
+        </thead>
+        <tbody>
+                @foreach ($cartItems as $item)
+                <tr>
+                    <th scope="row">{{$item->cd->title}}</th>
+                    <td class="td-center">
+                        <a href="{{ url('remove-to-cart/' . $item->cd_id) }}" class="m-2 p-2">-</a>
+                        {{ $item->quantity }}
+                        <a href="{{ url('add-to-cart/' . $item->cd_id) }}" class="m-2 p-2">+</a>
+                    </td>
+                    <td class="td-center"><span class="f-14">USD </span> {{ ($item->quantity * $item->cd->cost) / 100 }}</td>
+                </tr>
+                @endforeach
+                <tr>
+                    <th scope="row">Total:</th>
+                    <td></td>
+                    <td class="td-center font-weight-bold price"><span class="f-14">USD </span> {{{$totalPrice/100}}}</td>
+                </tr>
+            
+        </tbody>
+    </table>
+</div>
 
                         <div class="col-12 p-0 m-0 text-center">
                             @guest()
@@ -69,7 +99,11 @@
                                 </p>
                             @endguest
                             @auth()
-                                <a href="#" class="btn btn-warning" data-toggle="modal" data-target="#cartConfirm">Check
+                            <a href="<?= url('/cds'); ?>" class="btn btn-light mr-2" role="button">
+                                Continue purchasing
+                            </a>   
+                                <div  id="meli-button" class="d-inline-block"></div>
+                                <a href="#" class="d-none btn btn-warning" data-toggle="modal" data-target="#cartConfirm">Check
                                     Out</a>
                             @endauth
                         </div>
@@ -78,7 +112,7 @@
             </div>
         </div>
 
-        <!-- Modal -->
+        {{-- <!-- Modal -->
         <div class="modal fade" id="cartConfirm" tabindex="-1" aria-labelledby="cartConfirm" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-dialog">
@@ -96,12 +130,12 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            <a href="{{ url('order.confirm') }}" class="btn btn-success">Yes, confirm</a>
+                            <a class="btn btn-success" href="{{ route('cart.checkout', $cart->id) }}">Yes, confirm</a>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
     @endif
 

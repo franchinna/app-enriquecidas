@@ -18,7 +18,7 @@ class CdsController extends Controller
     {
         $formParams = [];
 
-        $cdsQuery = Cd::with('artist', 'genres');
+        $cdsQuery = Cd::with('artist', 'genres')->where('available', 'Y')->orderBy('updated_at', 'DESC');
 
         if ($request->query('cdtitle')) {
             $cdsQuery->where('title', 'like', '%' . $request->query('cdtitle') . '%');
@@ -57,8 +57,9 @@ class CdsController extends Controller
     {
 
         $request->validate(Cd::$rules);
+        $request->merge(['available' => 'Y']);
 
-        $data = $request->only(['title', 'description', 'duration', 'cost', 'release_date', 'artist_id', 'genre_id']);
+        $data = $request->only(['title', 'description', 'duration', 'cost', 'release_date', 'artist_id', 'genre_id', 'available']);
 
         if ($request->hasFile('imagen')) {
             $imagen = $request->file('imagen');
@@ -115,8 +116,10 @@ class CdsController extends Controller
     public function delete(Cd $cd)
     {
 
-        $cd->genres()->detach();
-        $cd->delete();
+        // $cd->genres()->detach();
+        // $cd->delete();
+
+        $cd->update(['available' => 'N']);
 
         return redirect()
             ->route('cds.index')

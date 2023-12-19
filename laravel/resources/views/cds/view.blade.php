@@ -22,7 +22,7 @@
                         alt="Album cover {{ $cd->title }}" class="img-fluid  img-home-galery ">
                 @else
                     <img src="<?= url('imgs/image.svg') ?>"
-                        alt="Album cover {{ $cd->artist->name }} - {{ $cd->title }}">
+                        alt="Album cover {{ $cd->artist->name }} - {{ $cd->title }}" class="img-fluid  img-home-galery ">
                 @endif
             </div>
 
@@ -45,14 +45,11 @@
                 <div class="d-flex justify-content-end gap-8 mt-4">
                     @auth
                         @if (auth()->user()->rol_id == 1)
-                            <form action="{{ route('cds.delete', ['cd' => $cd->cd_id]) }}" method="post" class="d-inline">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-outline-danger">
+
+                                <button  data-toggle="modal" data-target="#cdDelete" class="btn btn-light mr-2">
                                     <i class="bi bi-x-octagon mr-2"></i> Delete
                                 </button>
-                            </form>
-                            <a href="{{ route('cds.editForm', ['cd' => $cd->cd_id]) }}" class="btn btn-outline-secondary">
+                            <a href="{{ route('cds.editForm', ['cd' => $cd->cd_id]) }}" class="btn btn-info mr-2">
                                 <i class="bi bi-pencil-square mr-2"></i> Edit
                             </a>
                         @endif
@@ -64,4 +61,40 @@
             </div>
         </div>
     </div>
+
+
+    <div class="modal fade" id="cdDelete" tabindex="-1" aria-labelledby="cdDelete" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Are you sure you want to delete {{ $cd->title }}? </h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body text-center">
+                        @if (Storage::disk('public')->exists($cd->imagen))
+                        <img src="{{ asset('storage/' . $cd->imagen) }}"
+                            alt="Album cover {{ $cd->title }}" class="img-fluid  img-home-galery ">
+                    @else
+                        <img src="<?= url('imgs/image.svg') ?>"
+                            alt="Album cover {{ $cd->artist->name }} - {{ $cd->title }}">
+                    @endif
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <form action="{{ route('cds.delete', ['cd' => $cd->cd_id]) }}" method="post" class="d-inline">
+                            @csrf
+                            @method('DELETE')
+                            
+                            <button  data-toggle="modal" data-target="#cdDelete" class="btn btn-danger mr-2">
+                                Yes, delete
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
 @endsection

@@ -49,6 +49,7 @@ class Cd extends Model
       'release_date',
       'artist_id',
       'imagen',
+      'available'
    ];
 
    /** @var string[] Reglas de validacion */

@@ -12,32 +12,44 @@ use LaravelDaily\LaravelCharts\Classes\LaravelChart;
 
 class AuthController extends Controller
 {
-
+    // Inicio de las funciones de las vistas
     public function adminIndex()
     {
         return view('admin.index');
-    }    
+    }
+
+    public function loginForm()
+    {
+        return view('auth.login');
+    }
+
+    public function registerForm()
+    {
+        return view('auth.register');
+    }
+    // Fin de las funciones de las vistas
 
     public function adminCartPage()
     {
-        $carts = Cart::paginate(4);
+        $carts = Cart::orderBy('updated_at', 'DESC')
+        ->paginate(5);
 
         $chart_options = [
-            'chart_title' => 'Users by months',
+            'chart_title' => 'Shipping by months',
             'report_type' => 'group_by_date',
-            'model' => 'App\Models\User',
+            'model' => 'App\Models\Cart',
             'group_by_field' => 'created_at',
             'group_by_period' => 'month',
-            'chart_type' => 'pie',
+            'chart_type' => 'line',
         ];
 
         $chart = new LaravelChart($chart_options);
 
         $chart_options = [
-            'chart_title' => 'Users deleted',
+            'chart_title' => 'Carts status',
             'report_type' => 'group_by_string',
-            'model' => 'App\Models\User',
-            'group_by_field' => 'available',
+            'model' => 'App\Models\Cart',
+            'group_by_field' => 'status',
             'chart_type' => 'pie',
         ];
 
@@ -59,7 +71,8 @@ class AuthController extends Controller
 
     public function adminUserPage()
     {
-        $users = User::paginate(4);
+        $users = User::orderBy('updated_at', 'DESC')
+        ->paginate(4);
 
         $chart_options = [
             'chart_title' => 'Users by months',
@@ -109,14 +122,10 @@ class AuthController extends Controller
     {
         $carts = Cart::with('user')
             ->where('user_id', auth()->id())
-            ->paginate(3);
+            ->orderBy('updated_at', 'DESC')
+            ->paginate(4);
 
         return view('auth.profile', compact('carts'));
-    }
-
-    public function loginForm()
-    {
-        return view('auth.login');
     }
 
     public function login(Request $request)
@@ -150,22 +159,18 @@ class AuthController extends Controller
             ]);
     }
 
-    public function registerForm()
-    {
-        return view('auth.register');
-    }
-
     public function register(Request $request)
     {
 
         $request->validate(User::$rules);
 
         $request->merge([
-            'rol' => '0',
+            'rol_id' => '2',
+            'available' => 'Y',
             'password' => Hash::make($request->password),
         ]);
 
-        $user = User::create($request->only(['name', 'email', 'rol', 'password']));
+        $user = User::create($request->only(['name', 'email', 'rol_id', 'password','available']));
 
         return redirect()
             ->route('auth.login')
@@ -191,7 +196,8 @@ class AuthController extends Controller
     {
 
         auth()->logout();
-        $user->delete();
+        $user->available = 'N';
+        $user->update($user->only(['available']));
 
         return redirect()
             ->route('home')
@@ -204,14 +210,29 @@ class AuthController extends Controller
     public function adminDelete(User $user)
     {
         $user->available = 'N';
-        dd($user->available);
+        //dd($user->available);
 
         $user->update($user->only(['available']));
 
         return redirect()
-            ->route('admin.index')
+            ->route('admin.users')
             ->with([
                 'message' => "The user '{$user->name}' deleted successfully.",
+                'message-type' => 'success',
+            ]);
+    }
+
+    public function adminActivate(User $user)
+    {
+        $user->available = 'Y';
+        //dd($user->available);
+
+        $user->update($user->only(['available']));
+
+        return redirect()
+            ->route('admin.users')
+            ->with([
+                'message' => "The user '{$user->name}' activated successfully.",
                 'message-type' => 'success',
             ]);
     }
