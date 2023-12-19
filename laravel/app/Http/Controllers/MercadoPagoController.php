@@ -30,7 +30,7 @@ class MercadoPagoController extends Controller
                 return $cartItem->cd->cost * $cartItem->quantity;
             });
 
-            // Creamos los items para el cobro.
+            
             $items = [];
             foreach ($cartItems as $cartItem) {
                 $item = new Item();
@@ -40,20 +40,20 @@ class MercadoPagoController extends Controller
                 $items[] = $item;
             }
 
-            // Creamos la "preferencia" (detalles de la transacción).
+            
             $preference = new Preference();
 
-            // Le definimos los items, que deben ser un array de objetos MercadoPago\Item.
+            
             $preference->items = $items;
 
-            // Configuramos las URLs de callback para los resultados de los pagos.
+            
             $preference->back_urls = [
                 'success' => route('mp.payment.confirmed'),
                 'pending' => route('mp.payment.pending'),
                 'failure' => route('mp.payment.failed')
             ];
 
-            // "Guardamos" los detalles de la preferencia.
+            
             $preference->save();
 
 

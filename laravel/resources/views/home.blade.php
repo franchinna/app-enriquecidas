@@ -37,7 +37,7 @@
                                     @endif
                                     
                                     <div class="card-body">
-                                        <h2 class="card-title">{{$cd->title}}</h2>
+                                        <h3 class="card-title">{{$cd->title}}</h3>
                                         <p class="p-0 m-0 f-14">{{$cd->artist->name}}</p>
                                     </div>
                                 </a>
